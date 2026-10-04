@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Content Brief – WinzTV</title>
+<style>
+  :root{--accent:#e8ff47;--dark:#0d0d0d;--text:#f0f0f0;--muted:#888;--border:#2a2a2a}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#f5f5f0;color:#1a1a1a;font-family:'Segoe UI',system-ui,sans-serif;font-size:14px}
+
+  .toolbar{background:var(--dark);color:var(--text);padding:.75rem 2rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:50}
+  .toolbar-left{font-size:.85rem;color:var(--muted)}
+  .toolbar-left strong{color:var(--accent)}
+  .btn-print{background:var(--accent);color:var(--dark);border:none;padding:.45rem 1.2rem;border-radius:6px;font-weight:700;font-size:.82rem;cursor:pointer}
+
+  .page{max-width:900px;margin:2rem auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.1)}
+
+  .doc-header{background:var(--dark);color:var(--text);padding:2.5rem}
+  .doc-tag{font-size:.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem}
+  .doc-title{font-size:1.9rem;font-weight:800;margin-bottom:.2rem}
+  .doc-subtitle{color:#b0b0b0;font-style:italic;font-size:.95rem;margin-bottom:1.5rem}
+  .doc-meta{display:flex;flex-wrap:wrap;gap:2rem}
+  .meta-item .label{font-size:.68rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+  .meta-item .value{font-size:.9rem;font-weight:600}
+
+  .doc-body{padding:2rem 2.5rem}
+
+  .section{margin-bottom:2.25rem}
+  .section-head{display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;padding-bottom:.4rem;border-bottom:2px solid #e8e8e0}
+  .section-head h2{font-size:.95rem;font-weight:800;color:#1a1a1a}
+  .section-note{font-size:.75rem;color:#999;margin-left:auto;font-style:italic}
+
+  .field-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  .field-grid.three{grid-template-columns:1fr 1fr 1fr}
+  .field{display:flex;flex-direction:column;gap:.3rem}
+  .field label{font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:#888;font-weight:600}
+  .field-val{background:#f7f7f2;border:1px solid #e0e0d8;border-radius:6px;padding:.6rem .85rem;font-size:.875rem;color:#1a1a1a;min-height:2.2rem;line-height:1.5}
+  .field-val.tall{min-height:5rem}
+  .field-val.medium{min-height:3.5rem}
+
+  .tags{display:flex;flex-wrap:wrap;gap:.4rem}
+  .tag{padding:.25rem .7rem;border-radius:100px;font-size:.75rem;font-weight:600}
+  .tag-active{background:#0d0d0d;color:#e8ff47}
+  .tag-inactive{background:#f0f0e8;color:#999;border:1px solid #e0e0d8}
+
+  table{width:100%;border-collapse:collapse}
+  th{background:#f0f0e8;text-align:left;padding:.5rem .75rem;font-size:.68rem;text-transform:uppercase;letter-spacing:1px;color:#555;border-bottom:2px solid #e0e0d8}
+  td{padding:.55rem .75rem;border-bottom:1px solid #efefea;vertical-align:middle;font-size:.85rem}
+  tr:last-child td{border-bottom:none}
+  tr:hover td{background:#fafaf5}
+
+  .badge{display:inline-block;padding:.15rem .6rem;border-radius:100px;font-size:.68rem;font-weight:700;text-transform:uppercase}
+  .b-editor{background:#e0e7ff;color:#3730a3}
+  .b-design{background:#fce7f3;color:#9d174d}
+  .b-talent{background:#dcfce7;color:#166534}
+  .b-pm{background:#fef9c3;color:#854d0e}
+  .b-review{background:#f3e8ff;color:#6b21a8}
+
+  .deliverable-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:.75rem;align-items:center;padding:.65rem 0;border-bottom:1px solid #efefea;font-size:.85rem}
+  .deliverable-row:last-child{border-bottom:none}
+  .deliverable-row.header{font-size:.68rem;text-transform:uppercase;letter-spacing:1px;color:#888;font-weight:600;padding-bottom:.4rem;border-bottom:2px solid #e0e0d8}
+
+  .rules-list{display:flex;flex-direction:column;gap:.5rem;list-style:none}
+  .rules-list li{padding:.6rem .85rem;border-radius:6px;font-size:.85rem;display:flex;gap:.6rem;align-items:flex-start}
+  .rules-list li.rule-do{background:#f0fdf4;border-left:3px solid #22c55e}
+  .rules-list li.rule-dont{background:#fff1f2;border-left:3px solid #f43f5e}
+  .rule-icon{font-size:.9rem;flex-shrink:0;margin-top:.05rem}
+
+  .approval-chain{display:flex;align-items:center;gap:0;flex-wrap:wrap;margin-top:.5rem}
+  .approval-step{display:flex;flex-direction:column;align-items:center;gap:.25rem;text-align:center}
+  .approval-circle{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.75rem;border:2px solid}
+  .approval-circle.done{background:#0d0d0d;color:#e8ff47;border-color:#0d0d0d}
+  .approval-circle.active{background:#e8ff47;color:#0d0d0d;border-color:#e8ff47}
+  .approval-circle.pending{background:#fff;color:#bbb;border-color:#e0e0d8}
+  .approval-label{font-size:.65rem;color:#888;max-width:60px}
+  .approval-arrow{font-size:1rem;color:#ccc;padding:0 .4rem;margin-bottom:1.2rem}
+
+  .signoff{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem;margin-top:2rem;padding-top:1.5rem;border-top:2px solid #e8e8e0}
+  .sig-block .sig-line{border-bottom:1px solid #aaa;margin-bottom:.3rem;height:2rem}
+  .sig-block .sig-label{font-size:.72rem;color:#888}
+
+  @media(max-width:640px){.field-grid,.field-grid.three{grid-template-columns:1fr}.deliverable-row{grid-template-columns:1fr 1fr}}
+  @media print{.toolbar{display:none}.page{margin:0;border-radius:0;box-shadow:none}}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="toolbar-left">Portfolio Sample · <strong>Andrey Anavhe</strong> · Creative Lead, WinzTV</div>
+  <button class="btn-print" onclick="window.print()">🖨 Print / Save PDF</button>
+</div>
+
+<div class="page">
+  <div class="doc-header">
+    <div class="doc-tag">Content Brief · WinzTV · Creative Operations</div>
+    <div class="doc-title">5 African Athletes Redefining the Game</div>
+    <div class="doc-subtitle">Multimedia feature — long-form video + short-form cuts + thumbnail + social copy</div>
+    <div class="doc-meta">
+      <div class="meta-item"><div class="label">Brief #</div><div class="value">WTV-024</div></div>
+      <div class="meta-item"><div class="label">Issued By</div><div class="value">Andrey Anavhe — Creative Lead</div></div>
+      <div class="meta-item"><div class="label">Issue Date</div><div class="value">September 3, 2024</div></div>
+      <div class="meta-item"><div class="label">Content Due</div><div class="value">September 17, 2024</div></div>
+      <div class="meta-item"><div class="label">Publish Target</div><div class="value">September 20, 2024</div></div>
+      <div class="meta-item"><div class="label">Sprint</div><div class="value">Week 36 — Monday.com Board</div></div>
+    </div>
+  </div>
+
+  <div class="doc-body">
+
+    <div class="section">
+      <div class="section-head"><h2>📋 Overview & Objective</h2></div>
+      <div class="field-grid">
+        <div class="field" style="grid-column:1/-1">
+          <label>Content Concept</label>
+          <div class="field-val medium">A high-energy countdown piece spotlighting 5 African athletes — across football, basketball, track, and combat sports — who are breaking records and shifting culture globally. Mix of rapid-fire stats, archival clips, and hype commentary.</div>
+        </div>
+        <div class="field">
+          <label>Primary Goal</label>
+          <div class="field-val">Drive watch time and shares — optimized for YouTube + IG Reels cross-post</div>
+        </div>
+        <div class="field">
+          <label>Secondary Goal</label>
+          <div class="field-val">Grow WinzTV's subscriber base among Afro-diaspora sports fans in North America</div>
+        </div>
+        <div class="field">
+          <label>Content Series</label>
+          <div class="field-val">African Excellence in Sports — Vol. 3</div>
+        </div>
+        <div class="field">
+          <label>Content Type</label>
+          <div class="field-val">Multimedia — Video + Graphics + Social Copy</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><h2>🎯 Target Audience & Tone</h2></div>
+      <div class="field-grid">
+        <div class="field">
+          <label>Primary Audience</label>
+          <div class="field-val">African & Afro-diaspora sports fans, 18–35, US / UK / Canada / West Africa</div>
+        </div>
+        <div class="field">
+          <label>Secondary Audience</label>
+          <div class="field-val">General sports fans curious about African representation in global sports</div>
+        </div>
+      </div>
+      <div class="field" style="margin-top:1rem">
+        <label>Tone — Select All That Apply</label>
+        <div class="tags" style="margin-top:.4rem">
+          <span class="tag tag-active">🔥 Hype</span>
+          <span class="tag tag-active">💪 Empowering</span>
+          <span class="tag tag-active">🎉 Celebratory</span>
+          <span class="tag tag-inactive">📖 Educational</span>
+          <span class="tag tag-inactive">😂 Comedic</span>
+          <span class="tag tag-inactive">🎭 Dramatic</span>
+          <span class="tag tag-active">⚡ Fast-paced</span>
+          <span class="tag tag-inactive">🤝 Conversational</span>
+        </div>
+      </div>
+      <div class="field" style="margin-top:1rem">
+        <label>Voice & Style Notes</label>
+        <div class="field-val medium">Write like a fan, not a commentator. Culturally aware language — diaspora references, current slang where it fits naturally. Don't write for ESPN. Don't write for Twitter either. Find the middle: informed, direct, a little hype.</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><h2>📦 Deliverables</h2><span class="section-note">All files via Monday.com task — naming: WTV024_[type]_v[n]</span></div>
+      <div class="deliverable-row header">
+        <div>Deliverable</div><div>Owner</div><div>Due Date</div><div>Format / Specs</div>
+      </div>
+      <div class="deliverable-row">
+        <div><strong>Main Video — Long Form</strong><br/><span style="color:#888;font-size:.78rem">Full countdown piece, scripted + narrated</span></div>
+        <div><span class="badge b-editor">Editor</span></div>
+        <div>Sep 13</div>
+        <div>MP4, 1080p, 8–12 min, 16:9</div>
+      </div>
+      <div class="deliverable-row">
+        <div><strong>Short-Form Cuts (×3)</strong><br/><span style="color:#888;font-size:.78rem">One per top athlete — IG Reels / TikTok</span></div>
+        <div><span class="badge b-editor">Editor</span></div>
+        <div>Sep 14</div>
+        <div>MP4, 1080×1920, 30–60 sec each</div>
+      </div>
+      <div class="deliverable-row">
+        <div><strong>Thumbnail (×2 options)</strong><br/><span style="color:#888;font-size:.78rem">A/B test — bold text vs. face-forward</span></div>
+        <div><span class="badge b-design">Designer</span></div>
+        <div>Sep 12</div>
+        <div>JPG, 1280×720, max 2MB</div>
+      </div>
+      <div class="deliverable-row">
+        <div><strong>Lower Thirds / Stat Graphics</strong><br/><span style="color:#888;font-size:.78rem">Name plates + key stat callouts × 5</span></div>
+        <div><span class="badge b-design">Designer</span></div>
+        <div>Sep 11</div>
+        <div>PNG w/ transparency, WinzTV brand kit</div>
+      </div>
+      <div class="deliverable-row">
+        <div><strong>Social Copy Pack</strong><br/><span style="color:#888;font-size:.78rem">YouTube desc + IG caption + 3 tweet variants</span></div>
+        <div><span class="badge b-talent">On-Camera / Host</span></div>
+        <div>Sep 15</div>
+        <div>Google Doc, shared in task thread</div>
+      </div>
+      <div class="deliverable-row">
+        <div><strong>Script / Narration Record</strong><br/><span style="color:#888;font-size:.78rem">Voice-over or on-camera narration</span></div>
+        <div><span class="badge b-talent">On-Camera / Host</span></div>
+        <div>Sep 10</div>
+        <div>WAV or MOV; record in studio or home booth</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><h2>🎨 Creative Direction</h2></div>
+      <div class="field-grid three">
+        <div class="field">
+          <label>Visual Style</label>
+          <div class="field-val">Dark background, high contrast. WinzTV brand colors — black, gold, white. Bold typography. Dynamic motion graphics.</div>
+        </div>
+        <div class="field">
+          <label>Editing Pace</label>
+          <div class="field-val">Fast cuts — avg 2–3 sec per clip in hype segments. Slow down for key stat reveals. Match cuts to beat where possible.</div>
+        </div>
+        <div class="field">
+          <label>Music / Sound</label>
+          <div class="field-val">Afrobeats or Afropop instrumentals (royalty-free). High energy. Avoid generic ESPN-style orchestral beds.</div>
+        </div>
+      </div>
+      <div class="field-grid" style="margin-top:1rem">
+        <div class="field">
+          <label>Reference Content (Do This)</label>
+          <div class="field-val medium">WTV-019 "Top 10 African Goals" — pacing, graphics style, energy<br/>WTV-021 "Burna Boy x Sports" — cultural tone, audience-aware writing</div>
+        </div>
+        <div class="field">
+          <label>What to Avoid</label>
+          <div class="field-val medium">No generic stock footage. Do not use clips showing players in negative moments without context. No lazy "Africa is rising" framing.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><h2>📝 Script Outline / Shot Guide</h2><span class="section-note">Scriptwriter / host to flesh out from this skeleton</span></div>
+      <div class="field-grid">
+        <div class="field" style="grid-column:1/-1">
+          <label>Segment Structure</label>
+          <div class="field-val tall">
+            <strong>0:00–0:30</strong> — Cold open: fast-cut hype montage of all 5 athletes. No narration, just music + crowd SFX.<br/><br/>
+            <strong>0:30–1:00</strong> — Host intro: "These aren't just athletes — they're rewriting what's possible." Tease the list.<br/><br/>
+            <strong>1:00–3:30</strong> — Athletes #5 & #4: ~60 sec each. Stats graphic → highlight clip → host commentary → cultural context callout.<br/><br/>
+            <strong>3:30–6:30</strong> — Athletes #3 & #2: same format, slightly longer. Include one personal quote or story beat per athlete.<br/><br/>
+            <strong>6:30–9:30</strong> — Athlete #1: extended treatment. ~3 min. Deeper story, bigger stat graphic, strong outro line.<br/><br/>
+            <strong>9:30–10:00</strong> — Outro: subscribe CTA, community callout, next video tease. Keep energy up — don't fade out.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><h2>🔁 Revision Protocol</h2></div>
+      <ul class="rules-list">
+        <li class="rule-do"><span class="rule-icon">✅</span><div><strong>All feedback goes in the Monday.com task thread</strong> — not DMs, not voice notes, not verbal. One place keeps everything visible and nothing gets lost.</div></li>
+        <li class="rule-do"><span class="rule-icon">✅</span><div><strong>Use timestamps on video feedback</strong> — "At 2:14 the lower third covers the subject's face" is useful. "The graphics feel off" is not. Specific notes get fixed. Vague notes get sent back.</div></li>
+        <li class="rule-do"><span class="rule-icon">✅</span><div><strong>Watch the full cut before submitting notes</strong> — compile everything, then post once. That's one revision round. Drip-feeding notes across multiple messages stretches the cycle unnecessarily.</div></li>
+        <li class="rule-dont"><span class="rule-icon">🚫</span><div><strong>No new creative direction after the v1 is approved</strong> — if the concept and structure are signed off, v2 is for technical fixes and copy edits only. Structural changes restart the brief.</div></li>
+        <li class="rule-dont"><span class="rule-icon">🚫</span><div><strong>No approvals over voice note or casual message</strong> — approvals need to be confirmed in the task thread in writing. "Sounds good" in a DM doesn't count.</div></li>
+        <li class="rule-do"><span class="rule-icon">✅</span><div><strong>Two revision rounds max per deliverable</strong> — if something needs a third round, we schedule a quick alignment call before work continues. Usually means the brief missed something.</div></li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><h2>✅ Approval Chain</h2></div>
+      <div class="approval-chain">
+        <div class="approval-step"><div class="approval-circle done">v1</div><div class="approval-label">Draft Submitted</div></div>
+        <div class="approval-arrow">→</div>
+        <div class="approval-step"><div class="approval-circle done">CR</div><div class="approval-label">Creative Lead Review</div></div>
+        <div class="approval-arrow">→</div>
+        <div class="approval-step"><div class="approval-circle done">v2</div><div class="approval-label">Revisions Applied</div></div>
+        <div class="approval-arrow">→</div>
+        <div class="approval-step"><div class="approval-circle active">FA</div><div class="approval-label">Final Approval</div></div>
+        <div class="approval-arrow">→</div>
+        <div class="approval-step"><div class="approval-circle pending">PB</div><div class="approval-label">Publish / Schedule</div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><h2>👥 Team Assignments</h2></div>
+      <table>
+        <thead><tr><th>Name</th><th>Role</th><th>Responsibility on This Piece</th><th>Contact</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Andrey Anavhe</strong></td><td><span class="badge b-pm">Creative Lead</span></td><td>Brief owner, creative direction, final approval, publish</td><td>On file</td></tr>
+          <tr><td>Video Editor (assigned)</td><td><span class="badge b-editor">Editor</span></td><td>Long-form cut, short-form cuts, motion sync</td><td>Monday.com DM</td></tr>
+          <tr><td>Graphic Designer (assigned)</td><td><span class="badge b-design">Designer</span></td><td>Thumbnails, lower thirds, stat graphics</td><td>Monday.com DM</td></tr>
+          <tr><td>On-Camera Host (assigned)</td><td><span class="badge b-talent">Talent</span></td><td>Script, narration/VO recording, social copy</td><td>Monday.com DM</td></tr>
+          <tr><td>Andrey Anavhe</td><td><span class="badge b-review">Reviewer</span></td><td>v1 and v2 review; final sign-off before publish</td><td>On file</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="signoff">
+      <div class="sig-block"><div class="sig-line"></div><div class="sig-label">Creative Lead — Andrey Anavhe</div></div>
+      <div class="sig-block"><div class="sig-line"></div><div class="sig-label">Editor Sign-Off</div></div>
+      <div class="sig-block"><div class="sig-line"></div><div class="sig-label">Designer Sign-Off</div></div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

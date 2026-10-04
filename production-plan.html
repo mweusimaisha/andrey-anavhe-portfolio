@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Event Production Plan – PULSE: Bolé & Party</title>
+<style>
+  :root{--accent:#e8ff47;--dark:#0d0d0d;--text:#f0f0f0;--muted:#888;--border:#2a2a2a}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#f5f5f0;color:#1a1a1a;font-family:'Segoe UI',system-ui,sans-serif;font-size:14px}
+
+  .toolbar{background:var(--dark);color:var(--text);padding:.75rem 2rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:50}
+  .toolbar-left{font-size:.85rem;color:var(--muted)}
+  .toolbar-left strong{color:var(--accent)}
+  .btn-print{background:var(--accent);color:var(--dark);border:none;padding:.45rem 1.2rem;border-radius:6px;font-weight:700;font-size:.82rem;cursor:pointer}
+
+  .page{max-width:960px;margin:2rem auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.1)}
+
+  .doc-header{background:var(--dark);color:var(--text);padding:2.5rem}
+  .doc-tag{font-size:.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem}
+  .doc-title{font-size:1.9rem;font-weight:800;margin-bottom:.2rem}
+  .doc-subtitle{color:#b0b0b0;font-style:italic;margin-bottom:1.5rem}
+  .doc-meta{display:flex;flex-wrap:wrap;gap:2rem}
+  .meta-item .label{font-size:.68rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+  .meta-item .value{font-size:.9rem;font-weight:600}
+
+  .summary-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#e0e0d8;border-bottom:1px solid #e0e0d8}
+  .sum-card{background:#fff;padding:1.25rem 1.5rem;text-align:center}
+  .sum-num{font-size:1.6rem;font-weight:800}
+  .sum-label{font-size:.72rem;text-transform:uppercase;letter-spacing:.8px;color:#888;margin-top:.2rem}
+  .sum-card.green .sum-num{color:#16a34a}
+  .sum-card.yellow .sum-num{color:#d97706}
+  .sum-card.blue .sum-num{color:#2563eb}
+
+  .doc-body{padding:2rem 2.5rem}
+
+  h2{font-size:1rem;font-weight:800;margin-bottom:1rem;padding-bottom:.4rem;border-bottom:2px solid #e8e8e0}
+  .section{margin-bottom:2.5rem}
+
+  table{width:100%;border-collapse:collapse}
+  th{background:#f0f0e8;text-align:left;padding:.5rem .75rem;font-size:.68rem;text-transform:uppercase;letter-spacing:1px;color:#555;border-bottom:2px solid #e0e0d8}
+  td{padding:.55rem .75rem;border-bottom:1px solid #efefea;vertical-align:middle;font-size:.85rem}
+  tr:last-child td{border-bottom:none}
+  tr:hover td{background:#fafaf5}
+  tfoot td{background:#f7f7f2;font-weight:700;font-size:.85rem;border-top:2px solid #e0e0d8}
+
+  .badge{display:inline-block;padding:.15rem .6rem;border-radius:100px;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px}
+  .b-done{background:#dcfce7;color:#166534}
+  .b-na{background:#f3f4f6;color:#6b7280}
+
+  .progress-wrap{display:flex;align-items:center;gap:.5rem}
+  .progress-bar{flex:1;height:6px;background:#e8e8e0;border-radius:3px;overflow:hidden}
+  .progress-fill{height:100%;border-radius:3px}
+  .pct{font-size:.75rem;color:#555;white-space:nowrap;min-width:2.5rem}
+
+  .over{color:#dc2626;font-weight:600}
+  .under{color:#16a34a;font-weight:600}
+  .neutral{color:#555}
+
+  .week-label{font-size:.72rem;color:#888}
+  .risk-high{color:#dc2626;font-weight:700}
+  .risk-med{color:#d97706;font-weight:700}
+  .risk-low{color:#16a34a;font-weight:700}
+
+  @media(max-width:640px){.summary-bar{grid-template-columns:1fr 1fr}}
+  @media print{.toolbar{display:none}.page{margin:0;border-radius:0;box-shadow:none}}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="toolbar-left">Portfolio Sample · <strong>Andrey Anavhe</strong> · Event Coordinator, PULSE Events</div>
+  <button class="btn-print" onclick="window.print()">🖨 Print / Save PDF</button>
+</div>
+
+<div class="page">
+  <div class="doc-header">
+    <div class="doc-tag">Event Production Plan · PULSE Events · Raleigh-Durham, NC</div>
+    <div class="doc-title">Bolé & Party</div>
+    <div class="doc-subtitle">Street food meets nightlife — Afrobeats, Amapiano, grilled plantains & suya</div>
+    <div class="doc-meta">
+      <div class="meta-item"><div class="label">Event Date</div><div class="value">Saturday, October 5, 2024</div></div>
+      <div class="meta-item"><div class="label">Coordinator</div><div class="value">Andrey Anavhe</div></div>
+      <div class="meta-item"><div class="label">Venue</div><div class="value">Congress Social, Durham, NC</div></div>
+      <div class="meta-item"><div class="label">Capacity</div><div class="value">200 guests</div></div>
+      <div class="meta-item"><div class="label">Total Budget</div><div class="value">$18,500</div></div>
+      <div class="meta-item"><div class="label">Plan Version</div><div class="value">v2.1 — Final</div></div>
+    </div>
+  </div>
+
+  <div class="summary-bar">
+    <div class="sum-card green"><div class="sum-num">$17,840</div><div class="sum-label">Actual Spend</div></div>
+    <div class="sum-card green"><div class="sum-num">$660</div><div class="sum-label">Under Budget</div></div>
+    <div class="sum-card yellow"><div class="sum-num">187</div><div class="sum-label">Tickets Sold</div></div>
+    <div class="sum-card green"><div class="sum-num">94%</div><div class="sum-label">Capacity Filled</div></div>
+  </div>
+
+  <div class="doc-body">
+
+    <div class="section">
+      <h2>💰 Budget Breakdown</h2>
+      <table>
+        <thead><tr><th>Category</th><th>Vendor / Detail</th><th>Budgeted</th><th>Actual</th><th>Variance</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Venue Rental</td><td>Congress Social — 6 hr block</td><td>$3,500</td><td>$3,500</td><td class="neutral">—</td><td><span class="badge b-done">Paid</span></td></tr>
+          <tr><td>AV / Lighting</td><td>Local AV vendor — PA, lights, DJ booth, smoke</td><td>$3,200</td><td>$3,050</td><td class="under">-$150</td><td><span class="badge b-done">Paid</span></td></tr>
+          <tr><td>DJ Talent (×2)</td><td>Opening DJ + Headliner</td><td>$2,400</td><td>$2,400</td><td class="neutral">—</td><td><span class="badge b-done">Paid</span></td></tr>
+          <tr><td>Food Vendors</td><td>Bolé grill, suya station, small chops × 3 vendors</td><td>$2,800</td><td>$2,650</td><td class="under">-$150</td><td><span class="badge b-done">Paid</span></td></tr>
+          <tr><td>Bar / Beverages</td><td>Drinks service + zobo punch ingredients + ice</td><td>$1,800</td><td>$1,740</td><td class="under">-$60</td><td><span class="badge b-done">Paid</span></td></tr>
+          <tr><td>Branded Décor</td><td>Step-and-repeat, signage, table runners, LEDs</td><td>$1,200</td><td>$1,200</td><td class="neutral">—</td><td><span class="badge b-done">Paid</span></td></tr>
+          <tr><td>Security</td><td>3 security staff × 8 hrs</td><td>$900</td><td>$900</td><td class="neutral">—</td><td><span class="badge b-done">Paid</span></td></tr>
+          <tr><td>Event Staffing</td><td>5 event staff × 10 hrs</td><td>$1,250</td><td>$1,250</td><td class="neutral">—</td><td><span class="badge b-done">Paid</span></td></tr>
+          <tr><td>Marketing</td><td>IG ads, flyer design, Eventbrite fee</td><td>$900</td><td>$800</td><td class="under">-$100</td><td><span class="badge b-done">Paid</span></td></tr>
+          <tr><td>Permits & Insurance</td><td>City event permit + one-day liability insurance</td><td>$350</td><td>$350</td><td class="neutral">—</td><td><span class="badge b-done">Paid</span></td></tr>
+          <tr><td>Contingency</td><td>Reserve — misc day-of costs</td><td>$200</td><td>$0</td><td class="under">-$200</td><td><span class="badge b-na">Unused</span></td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td colspan="2">TOTAL</td><td>$18,500</td><td>$17,840</td><td class="under">-$660</td><td><span class="badge b-done">On Budget</span></td></tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>🤝 Vendor Tracker</h2>
+      <table>
+        <thead><tr><th>Vendor</th><th>Category</th><th>Contact</th><th>Contract</th><th>Deposit</th><th>Final Pmt</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Congress Social</td><td>Venue</td><td>On file</td><td><span class="badge b-done">Signed</span></td><td><span class="badge b-done">Paid</span></td><td><span class="badge b-done">Paid</span></td><td><span class="badge b-done">Confirmed</span></td></tr>
+          <tr><td>Sound & Vision AV Co.</td><td>AV / Lighting</td><td>On file</td><td><span class="badge b-done">Signed</span></td><td><span class="badge b-done">Paid</span></td><td><span class="badge b-done">Paid</span></td><td><span class="badge b-done">Confirmed</span></td></tr>
+          <tr><td>DJ Kizz (Opening)</td><td>Talent</td><td>On file</td><td><span class="badge b-done">Signed</span></td><td><span class="badge b-done">Paid</span></td><td><span class="badge b-done">Paid</span></td><td><span class="badge b-done">Confirmed</span></td></tr>
+          <tr><td>DJ Afro Heat (Headliner)</td><td>Talent</td><td>On file</td><td><span class="badge b-done">Signed</span></td><td><span class="badge b-done">Paid</span></td><td><span class="badge b-done">Paid</span></td><td><span class="badge b-done">Confirmed</span></td></tr>
+          <tr><td>Mama Bolé Catering</td><td>Food — Plantains/Suya</td><td>On file</td><td><span class="badge b-done">Signed</span></td><td><span class="badge b-done">Paid</span></td><td><span class="badge b-done">Paid</span></td><td><span class="badge b-done">Confirmed</span></td></tr>
+          <tr><td>Chop Life Kitchen</td><td>Food — Small Chops</td><td>On file</td><td><span class="badge b-done">Signed</span></td><td><span class="badge b-done">Paid</span></td><td><span class="badge b-done">Paid</span></td><td><span class="badge b-done">Confirmed</span></td></tr>
+          <tr><td>RDU Bar Services</td><td>Bar / Beverages</td><td>On file</td><td><span class="badge b-done">Signed</span></td><td><span class="badge b-done">Paid</span></td><td><span class="badge b-done">Paid</span></td><td><span class="badge b-done">Confirmed</span></td></tr>
+          <tr><td>G4 Security Group</td><td>Security</td><td>On file</td><td><span class="badge b-done">Signed</span></td><td><span class="badge b-na">N/A</span></td><td><span class="badge b-done">Paid</span></td><td><span class="badge b-done">Confirmed</span></td></tr>
+          <tr><td>Vivid Print Studio</td><td>Branded Décor / Print</td><td>On file</td><td><span class="badge b-done">Signed</span></td><td><span class="badge b-done">Paid</span></td><td><span class="badge b-done">Paid</span></td><td><span class="badge b-done">Confirmed</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>📅 Pre-Event Task Timeline</h2>
+      <table>
+        <thead><tr><th>Timeline</th><th>Task</th><th>Owner</th><th>Progress</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>6 Weeks Out<br/><span class="week-label">Aug 24</span></td><td>Venue confirmed & contract signed</td><td>Andrey</td><td><div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" style="width:100%;background:#22c55e"></div></div><span class="pct">100%</span></div></td><td><span class="badge b-done">Done</span></td></tr>
+          <tr><td>6 Weeks Out<br/><span class="week-label">Aug 24</span></td><td>DJ talent booked; contracts sent</td><td>Andrey + Kelyne</td><td><div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" style="width:100%;background:#22c55e"></div></div><span class="pct">100%</span></div></td><td><span class="badge b-done">Done</span></td></tr>
+          <tr><td>5 Weeks Out<br/><span class="week-label">Aug 31</span></td><td>Food vendors confirmed; menus agreed</td><td>Andrey</td><td><div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" style="width:100%;background:#22c55e"></div></div><span class="pct">100%</span></div></td><td><span class="badge b-done">Done</span></td></tr>
+          <tr><td>5 Weeks Out<br/><span class="week-label">Aug 31</span></td><td>Event permit & insurance filed</td><td>Andrey</td><td><div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" style="width:100%;background:#22c55e"></div></div><span class="pct">100%</span></div></td><td><span class="badge b-done">Done</span></td></tr>
+          <tr><td>4 Weeks Out<br/><span class="week-label">Sep 7</span></td><td>Eventbrite listing live; ticket sales open</td><td>Kelyne + Andrey</td><td><div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" style="width:100%;background:#22c55e"></div></div><span class="pct">100%</span></div></td><td><span class="badge b-done">Done</span></td></tr>
+          <tr><td>4 Weeks Out<br/><span class="week-label">Sep 7</span></td><td>Flyer design approved; IG marketing begins</td><td>Andrey + Designer</td><td><div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" style="width:100%;background:#22c55e"></div></div><span class="pct">100%</span></div></td><td><span class="badge b-done">Done</span></td></tr>
+          <tr><td>3 Weeks Out<br/><span class="week-label">Sep 14</span></td><td>AV vendor briefed; stage plot & input list shared</td><td>Andrey</td><td><div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" style="width:100%;background:#22c55e"></div></div><span class="pct">100%</span></div></td><td><span class="badge b-done">Done</span></td></tr>
+          <tr><td>2 Weeks Out<br/><span class="week-label">Sep 21</span></td><td>Branded décor ordered; print approved</td><td>Andrey</td><td><div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" style="width:100%;background:#22c55e"></div></div><span class="pct">100%</span></div></td><td><span class="badge b-done">Done</span></td></tr>
+          <tr><td>2 Weeks Out<br/><span class="week-label">Sep 21</span></td><td>Security briefing doc sent to G4</td><td>Andrey</td><td><div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" style="width:100%;background:#22c55e"></div></div><span class="pct">100%</span></div></td><td><span class="badge b-done">Done</span></td></tr>
+          <tr><td>1 Week Out<br/><span class="week-label">Sep 28</span></td><td>Run-of-show v1 drafted; shared with all leads</td><td>Andrey</td><td><div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" style="width:100%;background:#22c55e"></div></div><span class="pct">100%</span></div></td><td><span class="badge b-done">Done</span></td></tr>
+          <tr><td>1 Week Out<br/><span class="week-label">Sep 28</span></td><td>Ticket sales check — pacing toward goal</td><td>Kelyne + Andrey</td><td><div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" style="width:100%;background:#22c55e"></div></div><span class="pct">100%</span></div></td><td><span class="badge b-done">Done</span></td></tr>
+          <tr><td>3 Days Out<br/><span class="week-label">Oct 2</span></td><td>Final vendor confirmations; all deposits verified</td><td>Andrey</td><td><div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" style="width:100%;background:#22c55e"></div></div><span class="pct">100%</span></div></td><td><span class="badge b-done">Done</span></td></tr>
+          <tr><td>Day Before<br/><span class="week-label">Oct 4</span></td><td>Run-of-show v3 FINAL distributed to all staff</td><td>Andrey</td><td><div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" style="width:100%;background:#22c55e"></div></div><span class="pct">100%</span></div></td><td><span class="badge b-done">Done</span></td></tr>
+          <tr><td>Event Day<br/><span class="week-label">Oct 5</span></td><td>Load-in, show execution, closeout per ROS</td><td>Full Team</td><td><div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" style="width:100%;background:#22c55e"></div></div><span class="pct">100%</span></div></td><td><span class="badge b-done">Done</span></td></tr>
+          <tr><td>Post-Event<br/><span class="week-label">Oct 7</span></td><td>Closeout report + budget reconciliation sent to Kelyne</td><td>Andrey</td><td><div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" style="width:100%;background:#22c55e"></div></div><span class="pct">100%</span></div></td><td><span class="badge b-done">Done</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>⚠️ Risk Log</h2>
+      <table>
+        <thead><tr><th>Risk</th><th>Likelihood</th><th>Impact</th><th>Mitigation</th><th>Outcome</th></tr></thead>
+        <tbody>
+          <tr><td>DJ no-show / cancellation</td><td class="risk-low">Low</td><td class="risk-high">High</td><td>Backup DJ identified; contract includes cancellation clause</td><td><span class="badge b-done">Non-issue</span></td></tr>
+          <tr><td>Food vendor late setup</td><td class="risk-med">Medium</td><td class="risk-med">Medium</td><td>Load-in window starts 4 hrs before doors; buffer built into ROS</td><td><span class="badge b-done">Non-issue</span></td></tr>
+          <tr><td>Ticket sales below 75% capacity</td><td class="risk-med">Medium</td><td class="risk-high">High</td><td>IG ad spend increased in final week; community outreach via PULSE network</td><td><span class="badge b-done">94% filled</span></td></tr>
+          <tr><td>Overcapacity / crowd control</td><td class="risk-low">Low</td><td class="risk-high">High</td><td>3 security staff; wristband system; hard cap at 200</td><td><span class="badge b-done">Non-issue</span></td></tr>
+          <tr><td>AV failure mid-event</td><td class="risk-low">Low</td><td class="risk-high">High</td><td>AV crew on-site all night; backup playlist + spare cables on hand</td><td><span class="badge b-done">Non-issue</span></td></tr>
+          <tr><td>Weather (outdoor food stations)</td><td class="risk-med">Medium</td><td class="risk-med">Medium</td><td>Grill stations positioned under venue awning; rain plan on file</td><td><span class="badge b-done">Clear night</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

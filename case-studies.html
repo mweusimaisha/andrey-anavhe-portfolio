@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Case Studies – Andrey Anavhe</title>
+<style>
+  :root{--accent:#e8ff47;--dark:#0d0d0d;--surface:#161616;--card:#1e1e1e;--border:#2a2a2a;--text:#f0f0f0;--muted:#888}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#f5f5f0;color:#1a1a1a;font-family:'Segoe UI',system-ui,sans-serif;font-size:14px;line-height:1.7}
+
+  .toolbar{background:var(--dark);color:var(--text);padding:.75rem 2rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:50}
+  .toolbar-left{font-size:.85rem;color:var(--muted)}
+  .toolbar-left strong{color:var(--accent)}
+  .btn-print{background:var(--accent);color:var(--dark);border:none;padding:.45rem 1.2rem;border-radius:6px;font-weight:700;font-size:.82rem;cursor:pointer}
+
+  .page{max-width:820px;margin:2rem auto;padding-bottom:4rem}
+
+  .index{background:var(--dark);color:var(--text);border-radius:12px;overflow:hidden;margin-bottom:2.5rem;box-shadow:0 4px 24px rgba(0,0,0,.15)}
+  .index-header{padding:2rem 2.5rem 1.5rem}
+  .index-tag{font-size:.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem}
+  .index-title{font-size:1.7rem;font-weight:800;margin-bottom:.4rem}
+  .index-sub{color:var(--muted);font-size:.9rem}
+  .index-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+  .index-card{background:var(--surface);padding:1.4rem 1.6rem;cursor:pointer;transition:background .15s;text-decoration:none;display:block}
+  .index-card:hover{background:var(--card)}
+  .ic-num{font-size:1.5rem;font-weight:800;color:var(--accent);margin-bottom:.4rem}
+  .ic-title{font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.25rem;line-height:1.3}
+  .ic-org{font-size:.75rem;color:var(--muted)}
+
+  .case{background:#fff;border-radius:12px;overflow:hidden;margin-bottom:2.5rem;box-shadow:0 2px 16px rgba(0,0,0,.08)}
+
+  .case-header{padding:2.5rem;color:var(--text)}
+  .case-header.pulse{background:linear-gradient(135deg,#0d0d0d 60%,#1a1a00)}
+  .case-header.winz {background:linear-gradient(135deg,#0d0d0d 60%,#0a1628)}
+  .case-header.avis {background:linear-gradient(135deg,#0d0d0d 60%,#1a0a00)}
+
+  .case-num{font-size:.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:.4rem}
+  .case-title{font-size:1.5rem;font-weight:800;margin-bottom:.2rem;line-height:1.2}
+  .case-org{font-size:.9rem;color:var(--muted);margin-bottom:1.5rem}
+  .case-chips{display:flex;flex-wrap:wrap;gap:.5rem}
+  .chip{padding:.25rem .75rem;border-radius:100px;font-size:.72rem;font-weight:700;background:rgba(255,255,255,.08);color:var(--muted);border:1px solid rgba(255,255,255,.1)}
+
+  .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#e8e8e0}
+  .metric{background:#fafaf5;padding:1.1rem 1.4rem;text-align:center}
+  .metric-val{font-size:1.5rem;font-weight:800;color:#1a1a1a}
+  .metric-label{font-size:.7rem;text-transform:uppercase;letter-spacing:.8px;color:#888;margin-top:.2rem}
+
+  .case-body{padding:2.5rem}
+  .case-section{margin-bottom:2rem}
+  .case-section:last-child{margin-bottom:0}
+  .cs-label{font-size:.68rem;text-transform:uppercase;letter-spacing:1.5px;color:#888;font-weight:700;margin-bottom:.5rem}
+  h3{font-size:1rem;font-weight:800;color:#1a1a1a;margin-bottom:.75rem}
+  p{color:#444;margin-bottom:.8rem}
+  p:last-child{margin-bottom:0}
+  p strong{color:#1a1a1a}
+
+  .car-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-top:.5rem}
+  .car-card{border-radius:8px;padding:1.1rem 1.2rem}
+  .car-card.challenge{background:#fff1f2;border-left:3px solid #f43f5e}
+  .car-card.approach {background:#eff6ff;border-left:3px solid #3b82f6}
+  .car-card.result   {background:#f0fdf4;border-left:3px solid #22c55e}
+  .car-head{font-size:.68rem;text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:.5rem}
+  .car-card.challenge .car-head{color:#be123c}
+  .car-card.approach  .car-head{color:#1d4ed8}
+  .car-card.result    .car-head{color:#15803d}
+  .car-card p{font-size:.85rem;color:#444;margin:0}
+
+  .action-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin-top:.5rem}
+  .action-list li{padding:.6rem .9rem;background:#f7f7f2;border-radius:6px;font-size:.88rem;color:#333;padding-left:2rem;position:relative}
+  .action-list li::before{content:"→";position:absolute;left:.7rem;color:#888}
+
+  .lessons{display:flex;flex-direction:column;gap:.6rem;margin-top:.5rem}
+  .lesson{display:flex;gap:.75rem;align-items:flex-start;padding:.65rem .9rem;background:#f7f7f2;border-radius:6px;font-size:.88rem}
+  .lesson-icon{font-size:1rem;flex-shrink:0}
+
+  .skill-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.5rem}
+  .skill-tag{background:#1a1a1a;color:var(--accent);padding:.25rem .7rem;border-radius:100px;font-size:.75rem;font-weight:600}
+
+  hr{border:none;border-top:1px solid #e8e8e0;margin:1.5rem 0}
+
+  @media(max-width:640px){
+    .index-cards,.metrics,.car-grid{grid-template-columns:1fr}
+    .case-body{padding:1.5rem}
+    .case-header{padding:1.5rem}
+  }
+  @media print{
+    .toolbar{display:none}
+    body{background:#fff}
+    .page{margin:0;max-width:100%}
+    .case,.index{box-shadow:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="toolbar-left">Portfolio Sample · <strong>Andrey Anavhe</strong> · Creative Project Manager</div>
+  <button class="btn-print" onclick="window.print()">🖨 Print / Save PDF</button>
+</div>
+
+<div class="page">
+
+  <div class="index">
+    <div class="index-header">
+      <div class="index-tag">Case Studies · Portfolio</div>
+      <div class="index-title">Three Projects. Three Different Problems.</div>
+      <div class="index-sub">A look at how I've approached real challenges in event production, creative operations, and fleet management — what I did, what worked, and what I'd do differently.</div>
+    </div>
+    <div class="index-cards">
+      <a href="#cs1" class="index-card">
+        <div class="ic-num">01</div>
+        <div class="ic-title">Building a Production System for PULSE Events</div>
+        <div class="ic-org">PULSE Events · Raleigh-Durham</div>
+      </a>
+      <a href="#cs2" class="index-card">
+        <div class="ic-num">02</div>
+        <div class="ic-title">Getting a Hybrid Creative Team to Actually Ship</div>
+        <div class="ic-org">WinzTV · Raleigh, NC</div>
+      </a>
+      <a href="#cs3" class="index-card">
+        <div class="ic-num">03</div>
+        <div class="ic-title">Fixing a Reporting Problem Nobody Could See</div>
+        <div class="ic-org">Budget/Avis · Knightdale, NC</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- CASE STUDY 1 -->
+  <div class="case" id="cs1">
+    <div class="case-header pulse">
+      <div class="case-num">Case Study 01</div>
+      <div class="case-title">Building a Production System<br/>for PULSE Events</div>
+      <div class="case-org">PULSE Events · Raleigh-Durham, NC · Dec 2023 – Jan 2026</div>
+      <div class="case-chips">
+        <span class="chip">Event Production</span><span class="chip">Vendor Management</span>
+        <span class="chip">Budget Control</span><span class="chip">Community Events</span><span class="chip">African Culture</span>
+      </div>
+    </div>
+    <div class="metrics">
+      <div class="metric"><div class="metric-val">20+</div><div class="metric-label">Events Produced</div></div>
+      <div class="metric"><div class="metric-val">$40K</div><div class="metric-label">Largest Budget</div></div>
+      <div class="metric"><div class="metric-val">15</div><div class="metric-label">Staff Led On-Site</div></div>
+      <div class="metric"><div class="metric-val">0</div><div class="metric-label">Events Cancelled</div></div>
+    </div>
+    <div class="case-body">
+      <div class="case-section">
+        <div class="cs-label">Background</div>
+        <h3>What PULSE Does</h3>
+        <p>PULSE is a Raleigh-Durham event series celebrating African culture through food, music, and community. Their events — Bolé & Party, Brunch & Banter, Afro-Karaoke & Game Night — pull in crowds of 150–300+ people and have built a real following in the area.</p>
+        <p>I came on as Event Coordinator in December 2023. The events were already good. My job was to make sure the behind-the-scenes operation matched the quality of what guests were experiencing.</p>
+      </div>
+      <hr/>
+      <div class="case-section">
+        <div class="cs-label">The Situation</div>
+        <h3>What Needed to Change</h3>
+        <div class="car-grid">
+          <div class="car-card challenge"><div class="car-head">The Problem</div><p>As events got bigger and more frequent, the lack of formal production processes started showing. Vendors showed up without clear briefings. Staff weren't sure who owned what on the day. Budget tracking was loose. Small things kept falling through the cracks.</p></div>
+          <div class="car-card approach"><div class="car-head">What I Did</div><p>Built production docs from scratch — run-of-show templates, vendor trackers, pre-event timelines, and a post-event closeout report. Set up a communication structure for event day: radio channels by department, clear role assignments before anyone stepped on site.</p></div>
+          <div class="car-card result"><div class="car-head">What Changed</div><p>Zero cancellations over two years. Budget variance stayed under 5% across events. The team stopped spending energy on day-of chaos and could actually focus on the guest experience. Vendors started showing up prepared because they knew exactly what to expect.</p></div>
+        </div>
+      </div>
+      <hr/>
+      <div class="case-section">
+        <div class="cs-label">The Work</div>
+        <h3>Specifically What I Built</h3>
+        <ul class="action-list">
+          <li>Run-of-show documents for every event — load-in through closeout, phase by phase, with named owners and contingency notes for the stuff that actually goes wrong (vendor late, AV failure, crowd overages).</li>
+          <li>A vendor tracker that kept contracts, deposit status, final payments, and day-of contacts in one place. Eliminated the "who do I call?" scramble that was eating time on event days.</li>
+          <li>Budget management on events from $5K to $40K — tracked actuals against line items in real time, negotiated vendor costs without cutting quality, and built in a contingency buffer on every event.</li>
+          <li>On-site team structure for 10–15 staff and contractors — pre-event briefings, radio channel assignments by department, real-time adjustments when things shifted.</li>
+          <li>A post-event closeout report sent to the founder within 48 hours: attendance, actual vs. budget spend, what worked, what needs fixing before the next one.</li>
+        </ul>
+      </div>
+      <hr/>
+      <div class="case-section">
+        <div class="cs-label">What I Took Away</div>
+        <h3>Honest Reflections</h3>
+        <div class="lessons">
+          <div class="lesson"><span class="lesson-icon">📋</span><div><strong>A good run-of-show makes your team confident.</strong> When people know exactly what they're responsible for and when, they stop looking over their shoulder and start actually doing the job. That was the biggest shift I noticed.</div></div>
+          <div class="lesson"><span class="lesson-icon">💰</span><div><strong>Vendor relationships matter more than vendor contracts.</strong> The savings I found weren't from squeezing rates — they came from vendors who trusted us and gave us flexibility because we'd treated them well on previous events.</div></div>
+          <div class="lesson"><span class="lesson-icon">🎯</span><div><strong>I'd push for earlier vendor confirmations next time.</strong> Three days out is too late to be chasing final confirmations. I've since moved that window to a week out as a hard rule.</div></div>
+        </div>
+      </div>
+      <div class="case-section">
+        <div class="cs-label">Skills Demonstrated</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Event Production</span><span class="skill-tag">Run-of-Show Design</span>
+          <span class="skill-tag">Budget Management</span><span class="skill-tag">Vendor Negotiation</span>
+          <span class="skill-tag">On-Site Team Leadership</span><span class="skill-tag">Process Documentation</span>
+          <span class="skill-tag">Stakeholder Communication</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CASE STUDY 2 -->
+  <div class="case" id="cs2">
+    <div class="case-header winz">
+      <div class="case-num">Case Study 02</div>
+      <div class="case-title">Getting a Hybrid Creative Team<br/>to Actually Ship</div>
+      <div class="case-org">WinzTV · Raleigh, NC · Jul 2024 – Sep 2025</div>
+      <div class="case-chips">
+        <span class="chip">Creative Operations</span><span class="chip">Content Production</span>
+        <span class="chip">Workflow Design</span><span class="chip">Monday.com</span><span class="chip">Hybrid Team Management</span>
+      </div>
+    </div>
+    <div class="metrics">
+      <div class="metric"><div class="metric-val">30+</div><div class="metric-label">Pieces Produced</div></div>
+      <div class="metric"><div class="metric-val">6</div><div class="metric-label">Team Members</div></div>
+      <div class="metric"><div class="metric-val">↓40%</div><div class="metric-label">Revision Cycles</div></div>
+      <div class="metric"><div class="metric-val">Weekly</div><div class="metric-label">Sprint Cadence</div></div>
+    </div>
+    <div class="case-body">
+      <div class="case-section">
+        <div class="cs-label">Background</div>
+        <h3>The Setup at WinzTV</h3>
+        <p>WinzTV creates sports and culture content for African and Afro-diaspora audiences. I led a team of six — editors, designers, a host, and a writer — all working remotely on different schedules.</p>
+        <p>When I joined, the team was capable but disorganized. Good content was getting made, but it was taking longer than it should and costing more revision rounds than it needed to. The process from brief to published piece had a lot of unnecessary back-and-forth built into it.</p>
+      </div>
+      <hr/>
+      <div class="case-section">
+        <div class="cs-label">The Situation</div>
+        <h3>What Was Actually Happening</h3>
+        <div class="car-grid">
+          <div class="car-card challenge"><div class="car-head">The Problem</div><p>Briefs were given verbally or in a quick Slack message. Feedback came through DMs, voice notes, and emails — often vague. The team would go back and forth 3–4 times on a single piece because nobody was clear on what "approved" looked like until it was overdue.</p></div>
+          <div class="car-card approach"><div class="car-head">What I Did</div><p>Introduced a written content brief for every piece, set up Monday.com sprint boards for the team, ran a 30-minute weekly review, and built a simple revision protocol — written feedback only, batched, with timestamps on video notes.</p></div>
+          <div class="car-card result"><div class="car-head">What Changed</div><p>Revision cycles dropped by around 40%. We went from producing content reactively to running on a consistent weekly schedule. The team spent less time on admin chaos and more time on actual production.</p></div>
+        </div>
+      </div>
+      <hr/>
+      <div class="case-section">
+        <div class="cs-label">The Work</div>
+        <h3>What I Put in Place</h3>
+        <ul class="action-list">
+          <li>A content brief template covering concept, audience, tone, deliverables with specs, script structure, and a revision protocol — so every piece started with the same foundation and nobody had to guess what was expected.</li>
+          <li>Monday.com boards organized by content piece — tasks assigned per team member, due dates, and status columns. When something was stuck, it showed up before it became a missed deadline.</li>
+          <li>Weekly sprint reviews, Mondays, 30 minutes. What's in progress, what's blocked, what's publishing this week. Enough structure to stay aligned without over-meeting a small creative team.</li>
+          <li>A revision protocol that required all feedback in writing, in the task thread, batched before submission. That one change — more than anything else — cut the longest revision cycles.</li>
+          <li>Reference folders in Monday.com linking to past pieces that got the tone, pacing, and style right — so editors and designers had something concrete to aim at on new briefs.</li>
+        </ul>
+      </div>
+      <hr/>
+      <div class="case-section">
+        <div class="cs-label">What I Took Away</div>
+        <h3>Honest Reflections</h3>
+        <div class="lessons">
+          <div class="lesson"><span class="lesson-icon">📝</span><div><strong>Most revision problems start at the brief stage.</strong> Almost every piece that went 3+ rounds had a brief that skipped something — audience, tone, or what "done" actually looked like. Once I tightened briefs, the revisions followed.</div></div>
+          <div class="lesson"><span class="lesson-icon">🔁</span><div><strong>The revision protocol was the highest-leverage change.</strong> Forcing written, timestamped, batched feedback sounds like overhead but it made everyone — including me — give better notes. Vague feedback is a habit, not a personality.</div></div>
+          <div class="lesson"><span class="lesson-icon">🌍</span><div><strong>Cultural context belongs in the brief.</strong> For content aimed at Afro-diaspora audiences specifically, tone and references had to be explicit — not assumed. When I left that out, the content felt off even if the execution was technically fine.</div></div>
+        </div>
+      </div>
+      <div class="case-section">
+        <div class="cs-label">Skills Demonstrated</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Creative Briefing</span><span class="skill-tag">Content Workflow Design</span>
+          <span class="skill-tag">Monday.com</span><span class="skill-tag">Sprint Management</span>
+          <span class="skill-tag">Hybrid Team Leadership</span><span class="skill-tag">Feedback Systems</span>
+          <span class="skill-tag">Production Planning</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CASE STUDY 3 -->
+  <div class="case" id="cs3">
+    <div class="case-header avis">
+      <div class="case-num">Case Study 03</div>
+      <div class="case-title">Fixing a Reporting Problem<br/>Nobody Could See</div>
+      <div class="case-org">Budget/Avis · Knightdale, NC · Sep 2025 – Present</div>
+      <div class="case-chips">
+        <span class="chip">Operations Management</span><span class="chip">Process Improvement</span>
+        <span class="chip">Digital Tracking</span><span class="chip">Fleet Management</span><span class="chip">Change Management</span>
+      </div>
+    </div>
+    <div class="metrics">
+      <div class="metric"><div class="metric-val">218</div><div class="metric-label">Vehicles Managed</div></div>
+      <div class="metric"><div class="metric-val">↓81%</div><div class="metric-label">Reporting Gaps</div></div>
+      <div class="metric"><div class="metric-val">↓61%</div><div class="metric-label">Customer Wait Time</div></div>
+      <div class="metric"><div class="metric-val">98%</div><div class="metric-label">Reporting Accuracy</div></div>
+    </div>
+    <div class="case-body">
+      <div class="case-section">
+        <div class="cs-label">Background</div>
+        <h3>What I Walked Into</h3>
+        <p>When I joined Budget/Avis Knightdale as Operations Manager, I was managing a 218-vehicle fleet with a team of 14. The day-to-day wasn't broken — vehicles were going out, coming back, getting prepped. But there was no reliable way for leadership to see what was actually happening on the floor at any given time.</p>
+        <p>The logs were manual and inconsistent. Problems were usually discovered after the fact — after a customer waited too long, or after a maintenance issue turned into something bigger. The data existed in theory; in practice it wasn't usable.</p>
+      </div>
+      <hr/>
+      <div class="case-section">
+        <div class="cs-label">The Situation</div>
+        <h3>The Actual Problem</h3>
+        <div class="car-grid">
+          <div class="car-card challenge"><div class="car-head">The Problem</div><p>31 reporting gaps per month at baseline. Manual vehicle logs were being skipped, done late, or filled out inconsistently. Nobody was trying to create problems — the process just made it easy to let things slip, and there was no system catching it.</p></div>
+          <div class="car-card approach"><div class="car-head">What I Did</div><p>Audited the existing process first — mapped every step of the vehicle lifecycle, found exactly where logs were getting missed. Then designed a digital tracking workflow to replace the manual system and trained all 14 staff before cutting over.</p></div>
+          <div class="car-card result"><div class="car-head">What Changed</div><p>Reporting gaps dropped from 31/month to 6 within 90 days. Accuracy hit 98%. Customer wait time fell from 18 minutes to 7. The process has been running as the location standard since January 2026.</p></div>
+        </div>
+      </div>
+      <hr/>
+      <div class="case-section">
+        <div class="cs-label">The Work</div>
+        <h3>How It Came Together</h3>
+        <ul class="action-list">
+          <li>Spent the first three weeks auditing — not building. Mapped the full vehicle lifecycle from return to re-fleet and identified 6 specific handoff points where logs were consistently missed. That's what the solution targeted.</li>
+          <li>Redesigned the logging process digitally, cutting the steps required to update a vehicle's status from 4 down to 1. The biggest driver of non-compliance was friction, not attitude — so I removed the friction.</li>
+          <li>Ran a 2-week parallel period where the team used both systems before fully switching over. That made the training stick and gave people a chance to catch issues before the old process was gone.</li>
+          <li>Built a weekly summary report that went to leadership automatically — fleet status, utilization, maintenance queue, staffing coverage. No manual assembly required on either end.</li>
+          <li>Added a simple daily compliance check: if the morning log wasn't complete by 9 AM, the floor lead got a prompt. Small accountability loop that turned consistency into a habit within a few weeks.</li>
+        </ul>
+      </div>
+      <hr/>
+      <div class="case-section">
+        <div class="cs-label">What I Took Away</div>
+        <h3>Honest Reflections</h3>
+        <div class="lessons">
+          <div class="lesson"><span class="lesson-icon">🔍</span><div><strong>Auditing first saved a lot of time.</strong> I almost skipped it. The temptation was to just roll out a new system and see what happened. Finding the 6 specific failure points meant the solution was targeted instead of general.</div></div>
+          <div class="lesson"><span class="lesson-icon">🤝</span><div><strong>Getting the team on board was harder than building the tracker.</strong> A few people were skeptical — they'd seen "new systems" come and go. Showing early wins fast, and making their jobs easier rather than more complicated, was what actually moved them.</div></div>
+          <div class="lesson"><span class="lesson-icon">📊</span><div><strong>Visibility changes how people work.</strong> Once the floor team knew that their output was visible in real time, accountability shifted — not because anyone was being monitored, but because the work felt like it mattered and connected to something bigger.</div></div>
+        </div>
+      </div>
+      <div class="case-section">
+        <div class="cs-label">Skills Demonstrated</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Operations Management</span><span class="skill-tag">Process Improvement</span>
+          <span class="skill-tag">Change Management</span><span class="skill-tag">Digital Workflow Design</span>
+          <span class="skill-tag">Staff Training</span><span class="skill-tag">Fleet Coordination</span>
+          <span class="skill-tag">Data Reporting</span><span class="skill-tag">Stakeholder Communication</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

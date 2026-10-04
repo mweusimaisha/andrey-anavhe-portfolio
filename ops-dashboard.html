@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Operations Dashboard – Budget/Avis Knightdale</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root{--accent:#e8ff47;--dark:#0d0d0d;--surface:#161616;--card:#1e1e1e;--border:#2a2a2a;--text:#f0f0f0;--muted:#888}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--dark);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;font-size:13px;min-height:100vh}
+
+  .topbar{background:#111;border-bottom:1px solid var(--border);padding:12px 20px}
+  .topbar-meta{font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:2px}
+  .topbar-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+  .topbar-title{font-weight:800;font-size:16px}
+  .topbar-title span{color:var(--accent)}
+  .topbar-right{font-size:11px;color:var(--muted)}
+  .topbar-right b{color:var(--accent)}
+
+  .tabs{display:flex;gap:0;border-bottom:1px solid var(--border);background:var(--surface);padding:0 20px}
+  .tab{background:none;border:none;color:var(--muted);font-size:13px;font-weight:500;padding:10px 16px 12px;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s}
+  .tab.active{color:var(--accent);font-weight:800;border-bottom-color:var(--accent)}
+
+  .body{padding:18px 20px;max-width:1100px;margin:0 auto}
+
+  /* KPI CARDS */
+  .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+  .kpi{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 18px}
+  .kpi-label{font-size:10px;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);margin-bottom:6px}
+  .kpi-val{font-size:26px;font-weight:800;margin-bottom:4px}
+  .kpi-sub{font-size:11px;color:var(--muted)}
+  .kpi-trend{margin-top:6px;font-size:11px;font-weight:700}
+  .trend-up{color:#34d399}
+  .trend-dn{color:#f87171}
+
+  /* CHART CARDS */
+  .chart-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+  .chart-grid-3{display:grid;grid-template-columns:1fr 2fr;gap:12px;margin-bottom:12px}
+  .chart-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 18px}
+  .chart-title{font-size:12px;font-weight:700;margin-bottom:4px}
+  .chart-sub{font-size:11px;color:var(--muted);margin-bottom:14px}
+  .chart-wrap{position:relative}
+
+  /* TABLES */
+  .data-table{width:100%;border-collapse:collapse}
+  .data-table th{background:var(--surface);text-align:left;padding:6px 10px;font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);border-bottom:2px solid var(--border)}
+  .data-table td{padding:8px 10px;border-bottom:1px solid var(--border);font-size:12px;vertical-align:middle}
+  .data-table tr:last-child td{border-bottom:none}
+  .data-table tr:nth-child(odd) td{background:#111}
+
+  .badge{display:inline-block;padding:2px 8px;border-radius:100px;font-size:10px;font-weight:700;text-transform:uppercase}
+  .b-active{background:#dcfce7;color:#166534}
+  .b-leave{background:#fef9c3;color:#854d0e}
+  .sev-high{color:#ef4444;font-weight:700}
+  .sev-med{color:#f59e0b;font-weight:700}
+  .sev-low{color:#22c55e;font-weight:700}
+
+  /* ALERTS */
+  .alert-list{display:flex;flex-direction:column;gap:8px}
+  .alert-item{background:var(--surface);border-radius:8px;padding:10px 14px;border-left:4px solid}
+  .alert-item.high  {border-left-color:#ef4444}
+  .alert-item.medium{border-left-color:#f59e0b}
+  .alert-item.low   {border-left-color:#22c55e}
+  .alert-top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap}
+  .alert-badges{display:flex;gap:6px}
+  .alert-sev{padding:1px 7px;border-radius:100px;font-size:10px;font-weight:700;text-transform:uppercase}
+  .alert-sev.high  {background:#fee2e2;color:#991b1b}
+  .alert-sev.medium{background:#fef9c3;color:#854d0e}
+  .alert-sev.low   {background:#dcfce7;color:#166534}
+  .alert-cat{background:#2a2a2a;color:var(--muted);padding:1px 7px;border-radius:100px;font-size:10px}
+  .alert-time{font-size:10px;color:var(--muted)}
+  .alert-msg{font-size:12px;font-weight:600;margin-bottom:3px}
+  .alert-action{font-size:11px;color:#60a5fa}
+
+  /* PROCESS LOG */
+  .log-list{display:flex;flex-direction:column;gap:10px}
+  .log-item{display:flex;gap:12px;padding:10px 12px;background:var(--surface);border-radius:8px}
+  .log-item.active{border-left:3px solid var(--accent)}
+  .log-item.done  {border-left:3px solid #34d399}
+  .log-date{min-width:70px;font-size:11px;font-weight:700}
+  .log-item.active .log-date{color:var(--accent)}
+  .log-item.done  .log-date{color:#34d399}
+  .log-action{font-size:12px;margin-bottom:3px}
+  .log-impact{font-size:11px;color:var(--muted)}
+
+  /* PIE LEGEND */
+  .pie-legend{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+  .pie-leg-item{display:flex;align-items:center;gap:8px;font-size:11px}
+  .pie-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+
+  @media(max-width:700px){
+    .kpi-grid{grid-template-columns:1fr 1fr}
+    .chart-grid-2,.chart-grid-3{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-meta">Portfolio Sample · Andrey Anavhe · Operations Manager</div>
+  <div class="topbar-row">
+    <div class="topbar-title">Budget/Avis Knightdale <span>Operations Dashboard</span></div>
+    <div class="topbar-right">Fleet: <b>218 vehicles</b> &nbsp;·&nbsp; Period: <b style="color:var(--text)">Oct 2025 – Mar 2026</b> &nbsp;·&nbsp; Manager: <b style="color:var(--text)">Andrey Anavhe</b></div>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="showTab('overview',this)">Overview</button>
+  <button class="tab" onclick="showTab('fleet',this)">Fleet</button>
+  <button class="tab" onclick="showTab('staffing',this)">Staffing</button>
+  <button class="tab" onclick="showTab('reporting',this)">Reporting</button>
+  <button class="tab" onclick="showTab('alerts',this)">Alerts</button>
+</div>
+
+<!-- OVERVIEW -->
+<div id="tab-overview" class="body">
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-label">Fleet Utilization</div><div class="kpi-val" style="color:var(--accent)">91%</div><div class="kpi-sub">vs. 82% target</div><div class="kpi-trend trend-up">▲ 13pts since Oct</div></div>
+    <div class="kpi"><div class="kpi-label">Avg Customer Wait</div><div class="kpi-val" style="color:#34d399">7 min</div><div class="kpi-sub">vs. 18 min in Oct</div><div class="kpi-trend trend-up">▼ 61% reduction</div></div>
+    <div class="kpi"><div class="kpi-label">Reporting Accuracy</div><div class="kpi-val" style="color:#60a5fa">98%</div><div class="kpi-sub">vs. 72% at baseline</div><div class="kpi-trend trend-up">▲ Digital tracker rollout</div></div>
+    <div class="kpi"><div class="kpi-label">Vehicles Available</div><div class="kpi-val" style="color:#fbbf24">112</div><div class="kpi-sub">of 218 total fleet</div><div class="kpi-trend trend-dn">▼ 18 in maintenance</div></div>
+  </div>
+  <div class="chart-grid-2">
+    <div class="chart-card">
+      <div class="chart-title">Fleet Utilization vs. Target</div>
+      <div class="chart-sub">8-week trend</div>
+      <div class="chart-wrap"><canvas id="c-util" height="180"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Avg Customer Wait Time</div>
+      <div class="chart-sub">Minutes per week</div>
+      <div class="chart-wrap"><canvas id="c-wait" height="180"></canvas></div>
+    </div>
+  </div>
+  <div class="chart-grid-3">
+    <div class="chart-card">
+      <div class="chart-title">Fleet Status Breakdown</div>
+      <div class="chart-wrap"><canvas id="c-pie" height="180"></canvas></div>
+      <div class="pie-legend">
+        <div class="pie-leg-item"><div class="pie-dot" style="background:#34d399"></div>Available — 112</div>
+        <div class="pie-leg-item"><div class="pie-dot" style="background:var(--accent)"></div>On Rent — 74</div>
+        <div class="pie-leg-item"><div class="pie-dot" style="background:#f87171"></div>Maintenance — 18</div>
+        <div class="pie-leg-item"><div class="pie-dot" style="background:#60a5fa"></div>Cleaning/Prep — 14</div>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Recent Alerts</div>
+      <div class="alert-list" style="margin-top:4px">
+        <div class="alert-item high"><div class="alert-top"><div class="alert-badges"><span class="alert-sev high">High</span><span class="alert-cat">Maintenance</span></div><span class="alert-time">2h ago</span></div><div class="alert-msg">Vehicle #088 — scheduled service overdue by 3 days</div></div>
+        <div class="alert-item medium"><div class="alert-top"><div class="alert-badges"><span class="alert-sev medium">Medium</span><span class="alert-cat">Staffing</span></div><span class="alert-time">4h ago</span></div><div class="alert-msg">Tuesday PM shift 1 staff short — coverage needed</div></div>
+        <div class="alert-item low"><div class="alert-top"><div class="alert-badges"><span class="alert-sev low">Low</span><span class="alert-cat">Fleet</span></div><span class="alert-time">6h ago</span></div><div class="alert-msg">Vehicle #142 returned with minor damage — logged</div></div>
+        <div class="alert-item low"><div class="alert-top"><div class="alert-badges"><span class="alert-sev low">Low</span><span class="alert-cat">Reporting</span></div><span class="alert-time">8h ago</span></div><div class="alert-msg">Daily vehicle log submitted on time — 7-day streak ✓</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FLEET -->
+<div id="tab-fleet" class="body" style="display:none">
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-label">Total Fleet</div><div class="kpi-val" style="color:var(--accent)">218</div><div class="kpi-sub">vehicles managed</div></div>
+    <div class="kpi"><div class="kpi-label">On Rent</div><div class="kpi-val" style="color:#34d399">74</div><div class="kpi-sub">33.9% of fleet</div></div>
+    <div class="kpi"><div class="kpi-label">In Maintenance</div><div class="kpi-val" style="color:#f87171">18</div><div class="kpi-sub">8.3% — target &lt;10%</div><div class="kpi-trend trend-up">▲ Within target</div></div>
+    <div class="kpi"><div class="kpi-label">Peak Utilization</div><div class="kpi-val" style="color:var(--accent)">91%</div><div class="kpi-sub">Wk 8 — highest recorded</div><div class="kpi-trend trend-up">▲ from 78% (Wk 1)</div></div>
+  </div>
+  <div class="chart-card" style="margin-bottom:12px">
+    <div class="chart-title">Fleet Utilization — Full 8-Week Trend</div>
+    <div class="chart-sub">Surpassed 82% target from Week 4 onward following workflow restructure</div>
+    <div class="chart-wrap"><canvas id="c-util2" height="200"></canvas></div>
+  </div>
+  <div class="chart-grid-2">
+    <div class="chart-card">
+      <div class="chart-title">Current Fleet Status</div>
+      <div class="chart-wrap"><canvas id="c-pie2" height="200"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Customer Wait Time Reduction</div>
+      <div class="chart-sub">Oct → Mar: 18 min avg → 7 min avg (61% improvement)</div>
+      <div class="chart-wrap"><canvas id="c-wait2" height="170"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- STAFFING -->
+<div id="tab-staffing" class="body" style="display:none">
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-label">Team Size</div><div class="kpi-val" style="color:var(--accent)">14</div><div class="kpi-sub">full & part-time staff</div></div>
+    <div class="kpi"><div class="kpi-label">Schedule Adherence</div><div class="kpi-val" style="color:#34d399">96%</div><div class="kpi-sub">this week</div><div class="kpi-trend trend-up">▲ from 88% in Oct</div></div>
+    <div class="kpi"><div class="kpi-label">Onboarding Completed</div><div class="kpi-val" style="color:#60a5fa">3</div><div class="kpi-sub">new hires this quarter</div></div>
+    <div class="kpi"><div class="kpi-label">Open Shifts</div><div class="kpi-val" style="color:#f87171">1</div><div class="kpi-sub">Tuesday PM — coverage needed</div></div>
+  </div>
+  <div class="chart-card" style="margin-bottom:12px">
+    <div class="chart-title">This Week — Scheduled vs. Actual Staffing</div>
+    <div class="chart-sub">Weekend peaks require additional coverage; scheduling adjusted 2 weeks in advance</div>
+    <div class="chart-wrap"><canvas id="c-staff" height="200"></canvas></div>
+  </div>
+  <div class="chart-card">
+    <div class="chart-title">Staff Overview</div>
+    <table class="data-table" style="margin-top:8px">
+      <thead><tr><th>Name</th><th>Role</th><th>Status</th><th>Shifts This Wk</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Marcus T.</strong></td><td>Floor Lead</td><td><span class="badge b-active">Active</span></td><td style="text-align:center">5</td><td style="color:var(--muted)">Senior — handles peak shift coverage</td></tr>
+        <tr><td><strong>Deja W.</strong></td><td>Customer Svc</td><td><span class="badge b-active">Active</span></td><td style="text-align:center">4</td><td style="color:var(--muted)">Onboarded Nov — strong review scores</td></tr>
+        <tr><td><strong>Luis P.</strong></td><td>Vehicle Prep</td><td><span class="badge b-active">Active</span></td><td style="text-align:center">5</td><td style="color:var(--muted)">Leads cleaning/prep turnaround</td></tr>
+        <tr><td><strong>Aisha R.</strong></td><td>Customer Svc</td><td><span class="badge b-active">Active</span></td><td style="text-align:center">3</td><td style="color:var(--muted)">Part-time; available for weekend add-ons</td></tr>
+        <tr><td><strong>Chris M.</strong></td><td>Fleet Coord.</td><td><span class="badge b-active">Active</span></td><td style="text-align:center">5</td><td style="color:var(--muted)">Manages vehicle tracking logs daily</td></tr>
+        <tr><td><strong>Keene B.</strong></td><td>Customer Svc</td><td><span class="badge b-leave">On Leave</span></td><td style="text-align:center">0</td><td style="color:var(--muted)">Return date: Apr 1</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- REPORTING -->
+<div id="tab-reporting" class="body" style="display:none">
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-label">Reporting Accuracy</div><div class="kpi-val" style="color:var(--accent)">98%</div><div class="kpi-sub">current — up from 72%</div><div class="kpi-trend trend-up">▲ 26pt improvement</div></div>
+    <div class="kpi"><div class="kpi-label">Gaps This Month</div><div class="kpi-val" style="color:#34d399">6</div><div class="kpi-sub">down from 31 in Oct</div><div class="kpi-trend trend-up">▼ 81% reduction</div></div>
+    <div class="kpi"><div class="kpi-label">On-Time Log Rate</div><div class="kpi-val" style="color:#60a5fa">97%</div><div class="kpi-sub">daily vehicle logs</div></div>
+    <div class="kpi"><div class="kpi-label">Tracker Rollout</div><div class="kpi-val" style="color:#fbbf24">100%</div><div class="kpi-sub">all staff onboarded</div><div class="kpi-trend trend-up">▲ Completed Jan 2026</div></div>
+  </div>
+  <div class="chart-card" style="margin-bottom:12px">
+    <div class="chart-title">Reporting Gaps — Monthly Trend</div>
+    <div class="chart-sub">Digital tracking process rolled out Dec 2025. Gaps dropped from 31/month to 6 within 90 days.</div>
+    <div class="chart-wrap"><canvas id="c-gaps" height="200"></canvas></div>
+  </div>
+  <div class="chart-card">
+    <div class="chart-title">Process Improvement Log</div>
+    <div class="log-list" style="margin-top:10px">
+      <div class="log-item done"><div class="log-date">Oct 2025</div><div><div class="log-action">Baseline audit — identified 31 monthly reporting gaps and manual log bottlenecks</div><div class="log-impact">→ Established baseline for improvement tracking</div></div></div>
+      <div class="log-item done"><div class="log-date">Nov 2025</div><div><div class="log-action">Designed new digital vehicle tracking workflow; mapped current vs. future state</div><div class="log-impact">→ Approved by leadership for rollout</div></div></div>
+      <div class="log-item done"><div class="log-date">Dec 2025</div><div><div class="log-action">Rolled out digital tracker to fleet team; trained all 14 staff members</div><div class="log-impact">→ Gaps dropped from 27 → 18 in first full month</div></div></div>
+      <div class="log-item done"><div class="log-date">Jan 2026</div><div><div class="log-action">Full tracker adoption — manual logs deprecated; daily log compliance checks added</div><div class="log-impact">→ Reporting accuracy hits 95%+ for first time</div></div></div>
+      <div class="log-item done"><div class="log-date">Feb 2026</div><div><div class="log-action">Automated weekly summary report to leadership — no manual assembly required</div><div class="log-impact">→ Saved ~3 hrs/week of admin time for management</div></div></div>
+      <div class="log-item active"><div class="log-date">Mar 2026</div><div><div class="log-action">Quarterly review — reporting accuracy at 98%; gap target of &lt;10/month sustained</div><div class="log-impact">→ Process adopted as standard across location</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ALERTS -->
+<div id="tab-alerts" class="body" style="display:none">
+  <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr)">
+    <div class="kpi"><div class="kpi-label">Active Alerts</div><div class="kpi-val" style="color:#f87171">3</div><div class="kpi-sub">require attention</div></div>
+    <div class="kpi"><div class="kpi-label">High Severity</div><div class="kpi-val" style="color:#ef4444">1</div><div class="kpi-sub">vehicle maintenance overdue</div></div>
+    <div class="kpi"><div class="kpi-label">Resolved This Week</div><div class="kpi-val" style="color:#34d399">8</div><div class="kpi-sub">closed without escalation</div><div class="kpi-trend trend-up">▲ vs. last week</div></div>
+  </div>
+  <div class="chart-card">
+    <div class="chart-title" style="margin-bottom:12px">All Active Alerts</div>
+    <div class="alert-list">
+      <div class="alert-item high"><div class="alert-top"><div class="alert-badges"><span class="alert-sev high">High</span><span class="alert-cat">Maintenance</span></div><span class="alert-time">2h ago</span></div><div class="alert-msg">Vehicle #088 — scheduled service overdue by 3 days. Ground until resolved.</div><div class="alert-action">→ Recommended: Assign to maintenance immediately</div></div>
+      <div class="alert-item medium"><div class="alert-top"><div class="alert-badges"><span class="alert-sev medium">Medium</span><span class="alert-cat">Staffing</span></div><span class="alert-time">4h ago</span></div><div class="alert-msg">Tuesday PM shift — 1 staff short. Current coverage: 7/8 required.</div><div class="alert-action">→ Recommended: Contact on-call list; offer OT if needed</div></div>
+      <div class="alert-item medium"><div class="alert-top"><div class="alert-badges"><span class="alert-sev medium">Medium</span><span class="alert-cat">Fleet</span></div><span class="alert-time">1d ago</span></div><div class="alert-msg">Weekend utilization forecast at 94% — above historical peak.</div><div class="alert-action">→ Recommended: Pre-stage 10 vehicles for Saturday AM rush</div></div>
+      <div class="alert-item low"><div class="alert-top"><div class="alert-badges"><span class="alert-sev low">Low</span><span class="alert-cat">Fleet</span></div><span class="alert-time">6h ago</span></div><div class="alert-msg">Vehicle #142 returned with minor bumper scuff — logged and flagged for review.</div><div class="alert-action">→ Recommended: Schedule cosmetic inspection before re-fleet</div></div>
+      <div class="alert-item low"><div class="alert-top"><div class="alert-badges"><span class="alert-sev low">Low</span><span class="alert-cat">Reporting</span></div><span class="alert-time">8h ago</span></div><div class="alert-msg">Daily log submitted on time — 7-day compliance streak active.</div><div class="alert-action">→ No action required</div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const GRID = {color:"rgba(255,255,255,.06)"};
+const TICK = {color:"#888",font:{size:11}};
+const TOOLTIP = {backgroundColor:"#111",borderColor:"#2a2a2a",borderWidth:1,titleColor:"#888",bodyColor:"#f0f0f0",padding:8};
+
+const weeks  = ["Wk 1","Wk 2","Wk 3","Wk 4","Wk 5","Wk 6","Wk 7","Wk 8"];
+const util   = [78,80,75,83,87,85,89,91];
+const target = [82,82,82,82,82,82,82,82];
+const wait   = [18,16,20,15,12,10,9,7];
+const days   = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+const sched  = [8,8,9,8,11,13,10];
+const actual = [8,7,9,8,11,12,10];
+const months = ["Oct","Nov","Dec","Jan","Feb","Mar"];
+const gaps   = [31,27,24,18,11,6];
+const gapColors = ["#f87171","#f87171","#fbbf24","#fbbf24","#34d399","#34d399"];
+const pieData   = [112,74,18,14];
+const pieColors = ["#34d399","#e8ff47","#f87171","#60a5fa"];
+
+function lineOpts(yLabel, suffix="") {
+  return {
+    responsive:true, maintainAspectRatio:true,
+    plugins:{legend:{display:false},tooltip:{...TOOLTIP,callbacks:{label:c=>` ${c.dataset.label}: ${c.parsed.y}${suffix}`}}},
+    scales:{
+      x:{grid:{color:GRID.color},ticks:TICK},
+      y:{grid:{color:GRID.color},ticks:{...TICK,callback:v=>v+suffix}}
+    }
+  };
+}
+
+function barOpts(suffix="") {
+  return {
+    responsive:true, maintainAspectRatio:true,
+    plugins:{legend:{display:false},tooltip:{...TOOLTIP,callbacks:{label:c=>` ${c.parsed.y}${suffix}`}}},
+    scales:{
+      x:{grid:{color:GRID.color},ticks:TICK},
+      y:{grid:{color:GRID.color},ticks:{...TICK,callback:v=>v+suffix}}
+    }
+  };
+}
+
+function pieOpts() {
+  return {
+    responsive:true, maintainAspectRatio:true,
+    plugins:{legend:{display:false},tooltip:{...TOOLTIP,callbacks:{label:c=>`${c.label}: ${c.parsed} vehicles`}}}
+  };
+}
+
+// Overview charts
+new Chart("c-util", {type:"line",data:{labels:weeks,datasets:[
+  {label:"Utilization",data:util,borderColor:"#e8ff47",backgroundColor:"rgba(232,255,71,.08)",borderWidth:2.5,pointBackgroundColor:"#e8ff47",pointRadius:4,tension:.3},
+  {label:"Target",data:target,borderColor:"#444",borderWidth:1.5,borderDash:[5,5],pointRadius:0,tension:0}
+]},options:lineOpts("","%" )});
+
+new Chart("c-wait", {type:"bar",data:{labels:weeks,datasets:[
+  {label:"Wait Time",data:wait,backgroundColor:"#60a5fa",borderRadius:4}
+]},options:barOpts(" min")});
+
+new Chart("c-pie", {type:"doughnut",data:{labels:["Available","On Rent","Maintenance","Cleaning/Prep"],datasets:[
+  {data:pieData,backgroundColor:pieColors,borderWidth:0,hoverOffset:4}
+]},options:pieOpts()});
+
+// Fleet tab charts
+new Chart("c-util2", {type:"line",data:{labels:weeks,datasets:[
+  {label:"Utilization",data:util,borderColor:"#e8ff47",backgroundColor:"rgba(232,255,71,.08)",borderWidth:3,pointBackgroundColor:"#e8ff47",pointRadius:5,tension:.3},
+  {label:"Target",data:target,borderColor:"#444",borderWidth:1.5,borderDash:[5,5],pointRadius:0,tension:0}
+]},options:lineOpts("","%")});
+
+new Chart("c-pie2", {type:"doughnut",data:{labels:["Available","On Rent","Maintenance","Cleaning/Prep"],datasets:[
+  {data:pieData,backgroundColor:pieColors,borderWidth:0,hoverOffset:4}
+]},options:{...pieOpts(),plugins:{...pieOpts().plugins,legend:{display:true,position:"bottom",labels:{color:"#888",font:{size:11}}}}}});
+
+new Chart("c-wait2", {type:"bar",data:{labels:weeks,datasets:[
+  {label:"Wait Time",data:wait,backgroundColor:"#60a5fa",borderRadius:4}
+]},options:barOpts(" min")});
+
+// Staffing chart
+new Chart("c-staff", {type:"bar",data:{labels:days,datasets:[
+  {label:"Scheduled",data:sched,backgroundColor:"#2a2a2a",borderRadius:4},
+  {label:"Actual",   data:actual,backgroundColor:"#e8ff47",borderRadius:4}
+]},options:{
+  responsive:true,maintainAspectRatio:true,
+  plugins:{legend:{labels:{color:"#888",font:{size:11}}},tooltip:TOOLTIP},
+  scales:{x:{grid:{color:GRID.color},ticks:TICK},y:{grid:{color:GRID.color},ticks:TICK}}
+}});
+
+// Reporting chart
+new Chart("c-gaps", {type:"bar",data:{labels:months,datasets:[
+  {label:"Reporting Gaps",data:gaps,backgroundColor:gapColors,borderRadius:4}
+]},options:{
+  responsive:true,maintainAspectRatio:true,
+  plugins:{legend:{display:false},tooltip:TOOLTIP},
+  scales:{x:{grid:{color:GRID.color},ticks:TICK},y:{grid:{color:GRID.color},ticks:TICK}}
+}});
+
+function showTab(id, btn) {
+  document.querySelectorAll('[id^="tab-"]').forEach(t=>t.style.display="none");
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove("active"));
+  document.getElementById("tab-"+id).style.display="block";
+  btn.classList.add("active");
+}
+</script>
+</body>
+</html>

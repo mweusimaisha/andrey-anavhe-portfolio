@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Run-of-Show – PULSE: Bolé & Party</title>
+<style>
+  :root{--accent:#e8ff47;--dark:#0d0d0d;--surface:#161616;--card:#1e1e1e;--border:#2a2a2a;--text:#f0f0f0;--muted:#888}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#f5f5f0;color:#1a1a1a;font-family:'Segoe UI',system-ui,sans-serif;font-size:14px}
+
+  .toolbar{background:var(--dark);color:var(--text);padding:.75rem 2rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:50}
+  .toolbar-left{font-size:.85rem;color:var(--muted)}
+  .toolbar-left strong{color:var(--accent)}
+  .btn-print{background:var(--accent);color:var(--dark);border:none;padding:.45rem 1.2rem;border-radius:6px;font-weight:700;font-size:.82rem;cursor:pointer}
+  .btn-print:hover{background:#d4eb2f}
+
+  .page{max-width:900px;margin:2rem auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.1)}
+
+  .doc-header{background:var(--dark);color:var(--text);padding:2.5rem 2.5rem 2rem}
+  .doc-tag{font-size:.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem}
+  .doc-title{font-size:1.9rem;font-weight:800;margin-bottom:.2rem}
+  .doc-subtitle{color:#b0b0b0;font-style:italic;font-size:.95rem;margin-bottom:.25rem}
+  .doc-sub{color:var(--muted);font-size:.9rem;margin-bottom:1.5rem}
+  .doc-meta{display:flex;flex-wrap:wrap;gap:2rem}
+  .meta-item .label{font-size:.68rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+  .meta-item .value{font-size:.9rem;font-weight:600;color:var(--text)}
+
+  .contacts-bar{background:#111;padding:1rem 2.5rem;display:flex;flex-wrap:wrap;gap:2rem;border-bottom:2px solid var(--accent)}
+  .contact .role{color:var(--muted);font-size:.68rem;text-transform:uppercase;letter-spacing:.8px}
+  .contact .name{color:var(--text);font-weight:600}
+  .contact .phone{color:var(--accent)}
+
+  .doc-body{padding:2rem 2.5rem}
+
+  .phase-header{display:flex;align-items:center;gap:.75rem;margin:2rem 0 .75rem;padding-bottom:.4rem;border-bottom:2px solid #e8e8e0}
+  .phase-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+  .phase-label{font-size:.68rem;text-transform:uppercase;letter-spacing:1.5px;font-weight:700;color:#555}
+  .phase-header h3{font-size:.95rem;font-weight:800;color:#1a1a1a;margin-left:.25rem}
+
+  table{width:100%;border-collapse:collapse;margin-bottom:.5rem}
+  th{background:#f0f0e8;text-align:left;padding:.55rem .75rem;font-size:.68rem;text-transform:uppercase;letter-spacing:1px;color:#555;border-bottom:2px solid #e0e0d8}
+  td{padding:.6rem .75rem;border-bottom:1px solid #efefea;vertical-align:top;font-size:.85rem}
+  tr:last-child td{border-bottom:none}
+  tr:hover td{background:#fafaf5}
+  .time{font-weight:700;white-space:nowrap;color:#1a1a1a;font-variant-numeric:tabular-nums}
+  .duration{color:#888;font-size:.78rem;white-space:nowrap}
+  .owner{font-size:.78rem;font-weight:600;color:#555;white-space:nowrap}
+  .status{display:inline-block;padding:.15rem .55rem;border-radius:100px;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+  .s-all{background:#e8f4e8;color:#2d6a2d}
+  .s-pm{background:#fff3cd;color:#856404}
+  .s-av{background:#e8e8ff;color:#3030a0}
+  .s-venue{background:#fde8e8;color:#8b2020}
+  .s-food{background:#fff0e0;color:#8b4500}
+  .notes{font-size:.8rem;color:#666;font-style:italic}
+
+  .legend{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:2rem;padding-top:1rem;border-top:1px solid #e8e8e0}
+  .legend-title{font-size:.68rem;text-transform:uppercase;letter-spacing:1px;color:#888;width:100%}
+  .legend-item{display:flex;align-items:center;gap:.4rem;font-size:.75rem;color:#555}
+
+  .emergency-box{background:#fff8e8;border:1px solid #f0c040;border-radius:8px;padding:1.25rem 1.5rem;margin-top:2rem}
+  .emergency-box h4{font-size:.75rem;text-transform:uppercase;letter-spacing:1px;color:#856404;margin-bottom:.75rem}
+  .emergency-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.5rem}
+  .em-item{font-size:.82rem}
+  .em-item .em-role{color:#888;font-size:.7rem}
+
+  .signoff{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2rem;padding-top:1.5rem;border-top:2px solid #e8e8e0}
+  .sig-block .sig-line{border-bottom:1px solid #aaa;margin-bottom:.3rem;height:2rem}
+  .sig-block .sig-label{font-size:.72rem;color:#888}
+
+  @media print{.toolbar{display:none}body{background:#fff}.page{margin:0;border-radius:0;box-shadow:none}}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="toolbar-left">Portfolio Sample · <strong>Andrey Anavhe</strong> · Event Coordinator, PULSE Events — People Uniting. Lively Sounds. Enjoyment.</div>
+  <button class="btn-print" onclick="window.print()">🖨 Print / Save PDF</button>
+</div>
+
+<div class="page">
+  <div class="doc-header">
+    <div class="doc-tag">Run of Show · Production Document · PULSE Events</div>
+    <div class="doc-title">Bolé & Party</div>
+    <div class="doc-subtitle">Where street food meets nightlife — grilled plantains, suya, and the hottest Afrobeats & Amapiano</div>
+    <div class="doc-sub">Normalizing African Celebration Culture in Raleigh-Durham · Final Production Copy</div>
+    <div class="doc-meta">
+      <div class="meta-item"><div class="label">Date</div><div class="value">Saturday, October 5, 2024</div></div>
+      <div class="meta-item"><div class="label">Venue</div><div class="value">Congress Social, Durham, NC</div></div>
+      <div class="meta-item"><div class="label">Expected Attendance</div><div class="value">200 Guests</div></div>
+      <div class="meta-item"><div class="label">Budget</div><div class="value">$18,500</div></div>
+      <div class="meta-item"><div class="label">Event Coordinator</div><div class="value">Andrey Anavhe</div></div>
+      <div class="meta-item"><div class="label">Version</div><div class="value">v3.0 — FINAL (Oct 3)</div></div>
+    </div>
+  </div>
+
+  <div class="contacts-bar">
+    <div class="contact"><div class="role">Event Coordinator</div><div class="name">Andrey Anavhe</div><div class="phone">862-226-2384</div></div>
+    <div class="contact"><div class="role">PULSE Lead / Founder</div><div class="name">Kelyne Noel</div><div class="phone">910-275-5447</div></div>
+    <div class="contact"><div class="role">Venue Contact</div><div class="name">Congress Social — Mgr</div><div class="phone">On file</div></div>
+    <div class="contact"><div class="role">AV / DJ Liaison</div><div class="name">On-call</div><div class="phone">On file</div></div>
+    <div class="contact"><div class="role">Food Vendor Lead</div><div class="name">Bolé Vendor</div><div class="phone">On file</div></div>
+    <div class="contact"><div class="role">Security Lead</div><div class="name">On-call</div><div class="phone">On file</div></div>
+  </div>
+
+  <div class="doc-body">
+
+    <div class="phase-header">
+      <div class="phase-dot" style="background:#f59e0b"></div>
+      <div class="phase-label">Phase 1</div>
+      <h3>Load-In & Setup (12:00 PM – 5:00 PM)</h3>
+    </div>
+    <table>
+      <thead><tr><th>Time</th><th>Dur.</th><th>Activity</th><th>Owner</th><th>Notes</th><th>Lead</th></tr></thead>
+      <tbody>
+        <tr><td class="time">12:00 PM</td><td class="duration">60 min</td><td>Venue access & walk-through with venue manager</td><td class="owner">Andrey + Venue</td><td class="notes">Confirm power drops for food vendors; check load dock timing</td><td><span class="status s-pm">PM</span></td></tr>
+        <tr><td class="time">12:30 PM</td><td class="duration">90 min</td><td>Food vendor load-in — Bolé grill station, suya station, small chops</td><td class="owner">Food Vendor + Andrey</td><td class="notes">Grill stations near ventilation; confirm propane on-site</td><td><span class="status s-food">Food</span></td></tr>
+        <tr><td class="time">1:00 PM</td><td class="duration">90 min</td><td>AV load-in — PA system, DJ booth, lighting rig, smoke machine</td><td class="owner">AV Crew</td><td class="notes">DJ booth at back of room; confirm DMX patch before 3 PM</td><td><span class="status s-av">A/V</span></td></tr>
+        <tr><td class="time">2:00 PM</td><td class="duration">60 min</td><td>Branded décor install — PULSE step-and-repeat, table runners, accent lighting</td><td class="owner">Event Team (3)</td><td class="notes">Green/gold palette; logo wall at main entrance for photo ops</td><td><span class="status s-pm">PM</span></td></tr>
+        <tr><td class="time">2:30 PM</td><td class="duration">30 min</td><td>Bar setup — drinks station, zobo punch, non-alcoholic options</td><td class="owner">Bar Staff</td><td class="notes">Feature zobo (hibiscus) punch as signature drink</td><td><span class="status s-food">Food</span></td></tr>
+        <tr><td class="time">3:00 PM</td><td class="duration">60 min</td><td>AV system test — full PA, DJ booth line check, lighting cues, smoke test</td><td class="owner">AV Crew</td><td class="notes">Walk-in Afrobeats mix pre-loaded; confirm levels at 65% pre-doors</td><td><span class="status s-av">A/V</span></td></tr>
+        <tr><td class="time">4:00 PM</td><td class="duration">30 min</td><td>Security team briefing — entry protocol, wristbands, capacity plan</td><td class="owner">Security Lead</td><td class="notes">Max capacity: 200. VIP wristband = green; GA = white.</td><td><span class="status s-venue">Venue</span></td></tr>
+        <tr><td class="time">4:30 PM</td><td class="duration">30 min</td><td>Full venue punch-list walk-through with all dept leads</td><td class="owner">Andrey (all leads)</td><td class="notes">Resolve all open items before 5 PM or escalate to Kelyne</td><td><span class="status s-pm">PM</span></td></tr>
+        <tr><td class="time">5:00 PM</td><td class="duration">—</td><td>✅ Venue locked off — staff-only until doors open</td><td class="owner">All</td><td class="notes">No vendor access after this point without PM approval</td><td><span class="status s-pm">PM</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="phase-header">
+      <div class="phase-dot" style="background:#8b5cf6"></div>
+      <div class="phase-label">Phase 2</div>
+      <h3>DJ Arrival & Sound Check (5:00 PM – 6:30 PM)</h3>
+    </div>
+    <table>
+      <thead><tr><th>Time</th><th>Dur.</th><th>Activity</th><th>Owner</th><th>Notes</th><th>Lead</th></tr></thead>
+      <tbody>
+        <tr><td class="time">5:00 PM</td><td class="duration">30 min</td><td>DJ 1 (Opening) arrives — booth setup, laptop/controller config</td><td class="owner">AV + Andrey</td><td class="notes">Confirm Afrobeats/Amapiano playlist loaded; opening set = 7–8 PM</td><td><span class="status s-av">A/V</span></td></tr>
+        <tr><td class="time">5:30 PM</td><td class="duration">30 min</td><td>DJ 1 sound check — full system run, 3-track test</td><td class="owner">AV Crew</td><td class="notes">Confirm sub-bass response; this crowd expects low-end presence</td><td><span class="status s-av">A/V</span></td></tr>
+        <tr><td class="time">6:00 PM</td><td class="duration">30 min</td><td>DJ 2 (Headliner) arrives — booth handoff plan, set list confirm</td><td class="owner">AV + Andrey</td><td class="notes">Headliner set: 9 PM – close. Confirm transitions between sets.</td><td><span class="status s-av">A/V</span></td></tr>
+        <tr><td class="time">6:30 PM</td><td class="duration">—</td><td>✅ Stage locked — all talent on standby. Staff positions confirmed.</td><td class="owner">Andrey</td><td class="notes">Comms check on radio channel 2 with all leads.</td><td><span class="status s-pm">PM</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="phase-header">
+      <div class="phase-dot" style="background:#10b981"></div>
+      <div class="phase-label">Phase 3</div>
+      <h3>Doors & Pre-Event Vibes (6:30 PM – 8:00 PM)</h3>
+    </div>
+    <table>
+      <thead><tr><th>Time</th><th>Dur.</th><th>Activity</th><th>Owner</th><th>Notes</th><th>Lead</th></tr></thead>
+      <tbody>
+        <tr><td class="time">6:30 PM</td><td class="duration">—</td><td>All staff at positions — final radio comms check</td><td class="owner">Andrey</td><td class="notes">Confirm active headsets: PM, AV, security, bar, food vendors, door</td><td><span class="status s-all">All</span></td></tr>
+        <tr><td class="time">6:45 PM</td><td class="duration">—</td><td>Walk-in Afrobeats ambient mix begins at 65% volume</td><td class="owner">AV Crew</td><td class="notes">Raise to 75% once 50+ guests are inside</td><td><span class="status s-av">A/V</span></td></tr>
+        <tr><td class="time">7:00 PM</td><td class="duration">—</td><td>🚪 DOORS OPEN — GA & VIP entry begins</td><td class="owner">Security + Door</td><td class="notes">ID check at entry. Cap: 200. VIP entry: east door.</td><td><span class="status s-venue">Venue</span></td></tr>
+        <tr><td class="time">7:00 PM</td><td class="duration">60 min</td><td>Bolé grill fires up — plantains, suya, small chops service begins</td><td class="owner">Food Vendor</td><td class="notes">Aromatic smoke from grill is intentional — part of the Bolé experience</td><td><span class="status s-food">Food</span></td></tr>
+        <tr><td class="time">7:00 PM</td><td class="duration">—</td><td>Bar opens — zobo punch, drinks service begins</td><td class="owner">Bar Staff</td><td class="notes">Signature zobo punch promo: complimentary first cup 7–7:30 PM</td><td><span class="status s-food">Food</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="phase-header">
+      <div class="phase-dot" style="background:#e8ff47"></div>
+      <div class="phase-label">Phase 4</div>
+      <h3>Main Event — Music, Food & Culture (8:00 PM – 12:00 AM)</h3>
+    </div>
+    <table>
+      <thead><tr><th>Time</th><th>Dur.</th><th>Activity</th><th>Owner</th><th>Notes</th><th>Lead</th></tr></thead>
+      <tbody>
+        <tr><td class="time">8:00 PM</td><td class="duration">60 min</td><td>🎧 DJ 1 — Opening Set (Afrobeats / old-school Afropop warmup)</td><td class="owner">AV Crew</td><td class="notes">Lighting: cue pack A — warm amber tones. Smoke at 8:15.</td><td><span class="status s-av">A/V</span></td></tr>
+        <tr><td class="time">8:45 PM</td><td class="duration">—</td><td>PULSE host — welcome remarks, brand shoutout, community callout</td><td class="owner">Kelyne / Andrey</td><td class="notes">Keep to 3–4 mins max. Mention IG handle: @p.u.l.s.3</td><td><span class="status s-pm">PM</span></td></tr>
+        <tr><td class="time">9:00 PM</td><td class="duration">—</td><td>🔥 DJ 2 — Headliner Set begins (Amapiano / Afrobeats peak hours)</td><td class="owner">AV Crew</td><td class="notes">Lighting: cue pack B — full color wash, strobe at 10 PM.</td><td><span class="status s-av">A/V</span></td></tr>
+        <tr><td class="time">9:30 PM</td><td class="duration">—</td><td>Food service second push — vendors restock plantains, suya, pepper sauce</td><td class="owner">Food Vendor</td><td class="notes">Announce food still available; keep lines moving</td><td><span class="status s-food">Food</span></td></tr>
+        <tr><td class="time">10:30 PM</td><td class="duration">—</td><td>Last call reminder announced — bar closes at 11:30 PM</td><td class="owner">Bar Staff + PM</td><td class="notes">Host gives shoutout; no formal pause in music</td><td><span class="status s-all">All</span></td></tr>
+        <tr><td class="time">11:00 PM</td><td class="duration">—</td><td>Food service closes — vendors begin quiet breakdown</td><td class="owner">Food Vendor</td><td class="notes">No disruption to dance floor during breakdown</td><td><span class="status s-food">Food</span></td></tr>
+        <tr><td class="time">11:30 PM</td><td class="duration">30 min</td><td>DJ 2 — closing set wind-down, energy taper</td><td class="owner">AV Crew</td><td class="notes">Cue pack C — warm fade lighting.</td><td><span class="status s-av">A/V</span></td></tr>
+        <tr><td class="time">11:55 PM</td><td class="duration">—</td><td>PULSE host — closing remarks, social tag callout, next event tease</td><td class="owner">Kelyne / Andrey</td><td class="notes">Tag: @p.u.l.s.3. "Next PULSE event coming soon — stay locked in."</td><td><span class="status s-pm">PM</span></td></tr>
+        <tr><td class="time">12:00 AM</td><td class="duration">—</td><td>🎙 Event ends — house lights up 50%, walk-out ambient mix starts</td><td class="owner">AV Crew</td><td class="notes">Security begins crowd-flow to exits.</td><td><span class="status s-av">A/V</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="phase-header">
+      <div class="phase-dot" style="background:#ef4444"></div>
+      <div class="phase-label">Phase 5</div>
+      <h3>Load-Out & Closeout (12:00 AM – 2:00 AM)</h3>
+    </div>
+    <table>
+      <thead><tr><th>Time</th><th>Dur.</th><th>Activity</th><th>Owner</th><th>Notes</th><th>Lead</th></tr></thead>
+      <tbody>
+        <tr><td class="time">12:00 AM</td><td class="duration">30 min</td><td>Guest exit — security manages flow, bar fully closed</td><td class="owner">Security</td><td class="notes">Last call was 11:30 PM. No re-entry after midnight.</td><td><span class="status s-venue">Venue</span></td></tr>
+        <tr><td class="time">12:15 AM</td><td class="duration">45 min</td><td>Food vendor full breakdown — grills cooled, stations packed</td><td class="owner">Food Vendor</td><td class="notes">Grills must be cooled before loading into vehicles; fire marshal rule</td><td><span class="status s-food">Food</span></td></tr>
+        <tr><td class="time">12:30 AM</td><td class="duration">60 min</td><td>AV strike — PA, DJ booth, lights, cabling</td><td class="owner">AV Crew</td><td class="notes">All borrowed power strips returned to venue closet (labeled).</td><td><span class="status s-av">A/V</span></td></tr>
+        <tr><td class="time">1:00 AM</td><td class="duration">30 min</td><td>Décor removal — PULSE signage, step-and-repeat, accent lighting packed</td><td class="owner">Event Team</td><td class="notes">Branded items packed into labeled black cases for next event reuse</td><td><span class="status s-pm">PM</span></td></tr>
+        <tr><td class="time">1:30 AM</td><td class="duration">30 min</td><td>Final venue walk-through — damage check, trash sweep, key return</td><td class="owner">Andrey + Venue</td><td class="notes">Document any damage with photos. Confirm deposit release.</td><td><span class="status s-pm">PM</span></td></tr>
+        <tr><td class="time">2:00 AM</td><td class="duration">—</td><td>✅ Venue clear — event closed</td><td class="owner">Andrey</td><td class="notes">Send closeout + attendance summary to Kelyne within 48 hrs</td><td><span class="status s-pm">PM</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="legend">
+      <div class="legend-title">Owner Key</div>
+      <div class="legend-item"><span class="status s-pm">PM</span> Event Coordinator (Andrey)</div>
+      <div class="legend-item"><span class="status s-av">A/V</span> AV / DJ Crew</div>
+      <div class="legend-item"><span class="status s-venue">Venue</span> Venue / Security</div>
+      <div class="legend-item"><span class="status s-food">Food</span> Food Vendors / Bar</div>
+      <div class="legend-item"><span class="status s-all">All</span> All Dept Leads</div>
+    </div>
+
+    <div class="emergency-box">
+      <h4>⚠️ Emergency Protocols</h4>
+      <div class="emergency-grid">
+        <div class="em-item"><div class="em-role">Medical Emergency</div>Call 911 · notify Security Lead immediately · PM on standby</div>
+        <div class="em-item"><div class="em-role">AV / DJ Failure</div>Backup Afrobeats playlist on Andrey's phone; AV crew has spare cables</div>
+        <div class="em-item"><div class="em-role">Overcapacity</div>Hold entry at door · notify Security + PM · do not exceed 200</div>
+        <div class="em-item"><div class="em-role">Food Vendor Issue</div>Pre-packaged small chops on standby; notify PM before announcing change</div>
+        <div class="em-item"><div class="em-role">Evacuation</div>Main entrance + east fire exit · assemble in north parking lot</div>
+      </div>
+    </div>
+
+    <div class="signoff">
+      <div class="sig-block"><div class="sig-line"></div><div class="sig-label">Event Coordinator — Andrey Anavhe</div></div>
+      <div class="sig-block"><div class="sig-line"></div><div class="sig-label">PULSE Founder — Kelyne Noel</div></div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
