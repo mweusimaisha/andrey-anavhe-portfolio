@@ -11,14 +11,12 @@
   body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.6}
   a{color:var(--accent);text-decoration:none}
   a:hover{text-decoration:underline}
-
   nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(13,13,13,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:.9rem 2rem;display:flex;justify-content:space-between;align-items:center}
   .nav-logo{font-weight:700;font-size:1.1rem;letter-spacing:.5px}
   .nav-logo span{color:var(--accent)}
   .nav-links{display:flex;gap:1.8rem;list-style:none}
   .nav-links a{color:var(--muted);font-size:.9rem;transition:color .2s}
   .nav-links a:hover{color:var(--text);text-decoration:none}
-
   #hero{min-height:100vh;display:flex;align-items:center;padding:6rem 2rem 4rem;position:relative;overflow:hidden}
   .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 70% 50%,rgba(124,58,237,.18),transparent),radial-gradient(ellipse 40% 40% at 20% 80%,rgba(232,255,71,.08),transparent)}
   .hero-content{max-width:800px;position:relative;z-index:1}
@@ -35,13 +33,11 @@
   .hero-stats{display:flex;gap:2.5rem;margin-top:3.5rem;flex-wrap:wrap}
   .stat-num{font-size:2rem;font-weight:800;color:var(--accent)}
   .stat-label{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px}
-
   section{padding:6rem 2rem}
   .container{max-width:1000px;margin:0 auto}
   .section-label{font-size:.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem}
   h2{font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:800;margin-bottom:2.5rem}
   .divider{width:100%;height:1px;background:var(--border);margin:0}
-
   #about{background:var(--surface)}
   .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
   .about-text p{color:var(--muted);margin-bottom:1rem;font-size:1.05rem}
@@ -51,13 +47,11 @@
   .info-icon{color:var(--accent);font-size:1.1rem;margin-top:.1rem}
   .info-label{font-size:.75rem;text-transform:uppercase;letter-spacing:.8px;color:var(--muted)}
   .info-val{font-size:.95rem}
-
   .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem}
   .skill-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem}
   .skill-card h3{font-size:.85rem;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:1rem}
   .tags{display:flex;flex-wrap:wrap;gap:.5rem}
   .tag{background:rgba(255,255,255,.05);border:1px solid var(--border);padding:.3rem .75rem;border-radius:100px;font-size:.82rem;color:var(--muted)}
-
   #experience{background:var(--surface)}
   .exp-card{display:grid;grid-template-columns:180px 1fr;gap:2rem;padding:2rem 0;border-bottom:1px solid var(--border)}
   .exp-card:last-child{border-bottom:none}
@@ -68,7 +62,6 @@
   .exp-bullets{list-style:none;display:flex;flex-direction:column;gap:.5rem}
   .exp-bullets li{font-size:.92rem;color:var(--muted);padding-left:1rem;position:relative}
   .exp-bullets li::before{content:"→";position:absolute;left:0;color:var(--accent);font-size:.8rem}
-
   #work{background:var(--bg)}
   .work-intro{color:var(--muted);margin-bottom:2.5rem;font-size:1rem;max-width:600px}
   .work-group{margin-bottom:3rem}
@@ -93,7 +86,6 @@
   .sample-tag{font-size:.65rem;background:rgba(255,255,255,.05);border:1px solid var(--border);padding:.2rem .55rem;border-radius:100px;color:var(--muted)}
   .sample-link{font-size:.78rem;font-weight:700;color:var(--accent);white-space:nowrap;flex-shrink:0;background:rgba(232,255,71,.08);border:1px solid rgba(232,255,71,.2);padding:.3rem .75rem;border-radius:6px;transition:background .2s}
   .sample-link:hover{background:rgba(232,255,71,.15);text-decoration:none}
-
   #contact{background:var(--surface);text-align:center}
   #contact p{color:var(--muted);margin-bottom:2rem;font-size:1.05rem}
   .contact-links{display:flex;justify-content:center;gap:1.25rem;flex-wrap:wrap}
@@ -101,9 +93,7 @@
   .contact-btn:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
   .contact-btn.primary{background:var(--accent);color:#0d0d0d;border-color:var(--accent)}
   .contact-btn.primary:hover{background:#d4eb2f;color:#0d0d0d}
-
   footer{padding:1.5rem 2rem;text-align:center;font-size:.8rem;color:var(--muted);border-top:1px solid var(--border)}
-
   @media(max-width:700px){
     .about-grid{grid-template-columns:1fr}
     .exp-card{grid-template-columns:1fr;gap:.5rem}
