@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Andrey Anavhe | Creative Operations Manager</title>
+<style>
+  :root{--bg:#0d0d0d;--surface:#161616;--card:#1e1e1e;--accent:#e8ff47;--text:#f0f0f0;--muted:#888;--border:#2a2a2a}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.6}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(13,13,13,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:.9rem 2rem;display:flex;justify-content:space-between;align-items:center}
+  .nav-logo{font-weight:700;font-size:1.1rem;letter-spacing:.5px}
+  .nav-logo span{color:var(--accent)}
+  .nav-links{display:flex;gap:1.8rem;list-style:none}
+  .nav-links a{color:var(--muted);font-size:.9rem;transition:color .2s}
+  .nav-links a:hover{color:var(--text);text-decoration:none}
+  #hero{min-height:100vh;display:flex;align-items:center;padding:6rem 2rem 4rem;position:relative;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 70% 50%,rgba(124,58,237,.18),transparent),radial-gradient(ellipse 40% 40% at 20% 80%,rgba(232,255,71,.08),transparent)}
+  .hero-content{max-width:800px;position:relative;z-index:1}
+  .hero-tag{display:inline-block;background:rgba(232,255,71,.1);border:1px solid rgba(232,255,71,.3);color:var(--accent);font-size:.8rem;letter-spacing:1.5px;text-transform:uppercase;padding:.35rem .9rem;border-radius:100px;margin-bottom:1.5rem}
+  h1{font-size:clamp(2.8rem,6vw,5rem);font-weight:800;line-height:1.05;margin-bottom:1.2rem}
+  h1 span{color:var(--accent)}
+  .hero-sub{font-size:1.15rem;color:var(--muted);max-width:580px;margin-bottom:2rem}
+  .hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+  .btn{padding:.75rem 1.8rem;border-radius:8px;font-weight:600;font-size:.95rem;cursor:pointer;transition:all .2s;border:none;display:inline-block}
+  .btn-primary{background:var(--accent);color:#0d0d0d}
+  .btn-primary:hover{background:#d4eb2f;text-decoration:none;color:#0d0d0d}
+  .btn-outline{background:transparent;border:1px solid var(--border);color:var(--text)}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+  .hero-stats{display:flex;gap:2.5rem;margin-top:3.5rem;flex-wrap:wrap}
+  .stat-num{font-size:2rem;font-weight:800;color:var(--accent)}
+  .stat-label{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px}
+  section{padding:6rem 2rem}
+  .container{max-width:1000px;margin:0 auto}
+  .section-label{font-size:.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem}
+  h2{font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:800;margin-bottom:2.5rem}
+  .divider{width:100%;height:1px;background:var(--border);margin:0}
+  #about{background:var(--surface)}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+  .about-text p{color:var(--muted);margin-bottom:1rem;font-size:1.05rem}
+  .about-text p strong{color:var(--text)}
+  .about-aside{display:flex;flex-direction:column;gap:1rem}
+  .info-row{display:flex;gap:.75rem;align-items:flex-start}
+  .info-icon{color:var(--accent);font-size:1.1rem;margin-top:.1rem}
+  .info-label{font-size:.75rem;text-transform:uppercase;letter-spacing:.8px;color:var(--muted)}
+  .info-val{font-size:.95rem}
+  .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem}
+  .skill-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem}
+  .skill-card h3{font-size:.85rem;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:1rem}
+  .tags{display:flex;flex-wrap:wrap;gap:.5rem}
+  .tag{background:rgba(255,255,255,.05);border:1px solid var(--border);padding:.3rem .75rem;border-radius:100px;font-size:.82rem;color:var(--muted)}
+  #experience{background:var(--surface)}
+  .exp-card{display:grid;grid-template-columns:180px 1fr;gap:2rem;padding:2rem 0;border-bottom:1px solid var(--border)}
+  .exp-card:last-child{border-bottom:none}
+  .exp-date{font-size:.82rem;color:var(--muted);padding-top:.25rem;line-height:1.5}
+  .exp-company{font-size:.85rem;color:var(--accent);font-weight:600;margin-bottom:.15rem}
+  .exp-role{font-size:1.15rem;font-weight:700;margin-bottom:.2rem}
+  .exp-loc{font-size:.8rem;color:var(--muted);margin-bottom:.8rem}
+  .exp-bullets{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+  .exp-bullets li{font-size:.92rem;color:var(--muted);padding-left:1rem;position:relative}
+  .exp-bullets li::before{content:"→";position:absolute;left:0;color:var(--accent);font-size:.8rem}
+  #work{background:var(--bg)}
+  .work-intro{color:var(--muted);margin-bottom:2.5rem;font-size:1rem;max-width:640px}
+  .work-group{margin-bottom:3rem}
+  .work-group-label{font-size:.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);padding-bottom:.6rem;margin-bottom:1.25rem}
+  .samples-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem}
+  .sample-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color .2s,transform .2s;display:flex;flex-direction:column}
+  .sample-card:hover{border-color:var(--accent);transform:translateY(-3px)}
+  .sample-thumb{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:2rem;position:relative;overflow:hidden}
+  .sample-thumb.pulse{background:linear-gradient(135deg,#1a1a00,#2a2a00)}
+  .sample-thumb.avis{background:linear-gradient(135deg,#1a0a00,#0d0d0d)}
+  .sample-thumb.brief{background:linear-gradient(135deg,#0d1a0d,#0d0d0d)}
+  .sample-thumb.dash{background:linear-gradient(135deg,#0a0a1a,#0d0d0d)}
+  .sample-thumb.cs{background:linear-gradient(135deg,#1a0a1a,#0d0d0d)}
+  .thumb-label{position:absolute;bottom:.6rem;right:.75rem;font-size:.65rem;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,.25);font-weight:700}
+  .sample-body{padding:1.25rem;flex:1;display:flex;flex-direction:column}
+  .sample-type{font-size:.68rem;letter-spacing:1.2px;text-transform:uppercase;color:var(--accent);margin-bottom:.35rem}
+  .sample-title{font-weight:700;margin-bottom:.4rem;font-size:.95rem;color:var(--text)}
+  .sample-desc{font-size:.83rem;color:var(--muted);flex:1}
+  .sample-footer{display:flex;align-items:center;justify-content:space-between;margin-top:1rem;padding-top:.75rem;border-top:1px solid var(--border)}
+  .sample-tags{display:flex;gap:.35rem;flex-wrap:wrap}
+  .sample-tag{font-size:.65rem;background:rgba(255,255,255,.05);border:1px solid var(--border);padding:.2rem .55rem;border-radius:100px;color:var(--muted)}
+  .sample-link{font-size:.78rem;font-weight:700;color:var(--accent);white-space:nowrap;flex-shrink:0;background:rgba(232,255,71,.08);border:1px solid rgba(232,255,71,.2);padding:.3rem .75rem;border-radius:6px;transition:background .2s}
+  .sample-link:hover{background:rgba(232,255,71,.15);text-decoration:none}
+  #contact{background:var(--surface);text-align:center}
+  #contact p{color:var(--muted);margin:0 auto 2rem;font-size:1.05rem;max-width:620px}
+  .contact-links{display:flex;justify-content:center;gap:1.25rem;flex-wrap:wrap}
+  .contact-btn{padding:.75rem 1.8rem;border-radius:8px;font-weight:600;font-size:.95rem;border:1px solid var(--border);color:var(--text);transition:all .2s;display:inline-block}
+  .contact-btn:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+  .contact-btn.primary{background:var(--accent);color:#0d0d0d;border-color:var(--accent)}
+  .contact-btn.primary:hover{background:#d4eb2f;color:#0d0d0d}
+  footer{padding:1.5rem 2rem;text-align:center;font-size:.8rem;color:var(--muted);border-top:1px solid var(--border)}
+  @media(max-width:700px){
+    .about-grid{grid-template-columns:1fr}
+    .exp-card{grid-template-columns:1fr;gap:.5rem}
+    .nav-links{display:none}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Andrey <span>Anavhe</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Creative Operations Manager</div>
+    <h1>Andrey<br/><span>Anavhe</span></h1>
+    <p class="hero-sub">I own creative work from intake to delivery: scoping requests, sequencing work, and reporting status so teams ship on schedule.</p>
+    <div class="hero-btns">
+      <a href="#work" class="btn btn-primary">See My Work</a>
+      <a href="#contact" class="btn btn-outline">Get In Touch</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">7+</div><div class="stat-label">Years Experience</div></div>
+      <div><div class="stat-num">5</div><div class="stat-label">Roles Held</div></div>
+      <div><div class="stat-num">$20K</div><div class="stat-label">PULSE Project Budget</div></div>
+      <div><div class="stat-num">9</div><div class="stat-label">Staff Supervised</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="section-label">About</div>
+        <h2>Intake to delivery</h2>
+        <p>I'm a <strong>Creative Operations Manager</strong> with experience owning creative work from intake through delivery: scoping requests, assigning and sequencing work, reporting status to stakeholders, and improving the workflows creative teams run on.</p>
+        <p>My background spans a media creative-lead role, technical project coordination in Agile teams, and event and project coordination, with <strong>Monday.com</strong> as my core work-management platform.</p>
+        <p>I studied Theatre Arts with a focus on Costume Design, and I volunteer as a project manager building AI-assisted workflows and production processes for a theatre production.</p>
+      </div>
+      <div class="about-aside">
+        <div class="info-row"><div class="info-icon">📍</div><div><div class="info-label">Location</div><div class="info-val">Raleigh-Durham, NC</div></div></div>
+        <div class="info-row"><div class="info-icon">🎓</div><div><div class="info-label">Education</div><div class="info-val">B.A. Theatre Arts (Costume Design) — University of Benin, Nigeria, 2012–2016</div></div></div>
+        <div class="info-row"><div class="info-icon">✉️</div><div><div class="info-label">Email</div><div class="info-val"><a href="mailto:anavhe26@gmail.com">anavhe26@gmail.com</a></div></div></div>
+        <div class="info-row"><div class="info-icon">🔗</div><div><div class="info-label">LinkedIn</div><div class="info-val"><a href="http://linkedin.com/in/andreyanavhe" target="_blank">linkedin.com/in/andreyanavhe</a></div></div></div>
+        <div class="info-row"><div class="info-icon">📞</div><div><div class="info-label">Phone</div><div class="info-val">(862) 226-2384</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="skills">
+  <div class="container">
+    <div class="section-label">Skills</div>
+    <h2>What I bring</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>Creative Operations</h3>
+        <div class="tags">
+          <span class="tag">Creative Operations Management</span><span class="tag">Intake-to-Delivery Workflow</span>
+          <span class="tag">Status Reporting</span><span class="tag">Process & Workflow Improvement</span>
+          <span class="tag">Production Schedules</span><span class="tag">Creative Briefing</span>
+          <span class="tag">Content Workflow Management</span><span class="tag">Production Planning</span><span class="tag">Brand Coordination</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Coordination & Leadership</h3>
+        <div class="tags">
+          <span class="tag">Resource Coordination</span><span class="tag">Budget Tracking</span>
+          <span class="tag">Cross-Functional Leadership</span><span class="tag">Agile Coordination</span>
+          <span class="tag">Vendor Relations</span><span class="tag">Stakeholder Management</span>
+          <span class="tag">Negotiation</span><span class="tag">Risk Management</span><span class="tag">Problem-Solving</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Tools</h3>
+        <div class="tags">
+          <span class="tag">Monday.com</span><span class="tag">Asana</span><span class="tag">Jira</span><span class="tag">Trello</span><span class="tag">Agile/Scrum</span><span class="tag">Microsoft 365 (incl. Excel)</span>
+          <span class="tag">Google Workspace</span><span class="tag">Zoom</span><span class="tag">Microsoft Teams</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="experience">
+  <div class="container">
+    <div class="section-label">Experience</div>
+    <h2>Where I've done the work</h2>
+    <div class="timeline">
+
+      <div class="exp-card">
+        <div class="exp-date">Jul 2025 – Jul 2026</div>
+        <div>
+          <div class="exp-company">Avis / Budget</div>
+          <div class="exp-role">Operations Manager</div>
+          <div class="exp-loc">Knightdale, NC</div>
+          <ul class="exp-bullets">
+            <li>Managed daily high-volume rental operations across a 200+ vehicle portfolio, coordinating scheduling, resource allocation, returns flow and front-line service.</li>
+            <li>Rolled out a digital tracking process that reduced reporting gaps and gave leadership better visibility into daily operations.</li>
+            <li>Handled customer escalations in person and by phone, prioritizing service under staffing and resource constraints.</li>
+            <li>Coordinated team scheduling and daily priorities to keep operations moving during peak demand.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-date">Dec 2023 – Present<br/>(part-time / contract)</div>
+        <div>
+          <div class="exp-company">PULSE Events</div>
+          <div class="exp-role">Event & Project Coordinator</div>
+          <div class="exp-loc">Raleigh, NC</div>
+          <ul class="exp-bullets">
+            <li>Planned and executed 20+ community and creative events, managing logistics, timelines, vendors and on-site creative setups from kickoff through closeout.</li>
+            <li>Managed event budgets ranging from $5K to $40K, tightening vendor costs without sacrificing creative quality.</li>
+            <li>Led on-site teams of 10–15 staff and contractors, adjusting assignments and schedules in real time.</li>
+            <li>Coordinate event and project planning and execution, from timelines and run-of-show preparation through delivery and post-event evaluation.</li>
+            <li>Manage vendor coordination and client communication across multiple concurrent projects.</li>
+            <li>Track and manage a $20,000 project budget, keeping spending aligned to plan.</li>
+            <li>Coordinate staff and volunteers, assigning responsibilities and keeping delivery on schedule.</li>
+            <li>Support community engagement activities connected to events and programs.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-date">Jul 2023 – Sep 2025</div>
+        <div>
+          <div class="exp-company">WinzTV / WinzMedia</div>
+          <div class="exp-role">Creative Lead</div>
+          <div class="exp-loc">Raleigh, NC</div>
+          <ul class="exp-bullets">
+            <li>Provided creative direction for content development, keeping output aligned to brand.</li>
+            <li>Built and managed production schedules and budgets for creative projects.</li>
+            <li>Led end-to-end production of 30+ multimedia content pieces, from concept and scripting through set coordination and final approvals.</li>
+            <li>Used Monday.com to manage workflows across editors, designers and on-camera talent, and managed a hybrid creative team of 6 with weekly sprint reviews.</li>
+            <li>Built a standardized feedback system that made revision rounds faster and cut vague notes.</li>
+            <li>Coordinated a creative team to deliver content on schedule.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-date">Sep 2021 – Jul 2023</div>
+        <div>
+          <div class="exp-company">Think & Tech</div>
+          <div class="exp-role">Technical Project Coordinator</div>
+          <div class="exp-loc">Newark, NJ</div>
+          <ul class="exp-bullets">
+            <li>Managed 12+ concurrent digital and operations projects, building task boards and timelines in Asana.</li>
+            <li>Ran weekly cross-functional syncs with engineering, design and ops teams, and allocated resources across a 15-person hybrid team.</li>
+            <li>Created workflow templates that shortened project setup and standardized documentation and approvals.</li>
+            <li>Coordinated technical project workflows for device and electronics repair operations.</li>
+            <li>Supported Agile coordination across cross-functional teams, tracking resources and deliverables.</li>
+            <li>Provided client updates and status reporting on active projects.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-date">2019 – 2021</div>
+        <div>
+          <div class="exp-company">Brookdale Coffee & Bagel</div>
+          <div class="exp-role">Retail Store Manager</div>
+          <div class="exp-loc">Brooklyn, NY</div>
+          <ul class="exp-bullets">
+            <li>Managed store operations and customer service for a busy retail location.</li>
+            <li>Supervised a team of approximately nine staff, including scheduling and day-to-day direction.</li>
+            <li>Managed inventory and stock, and maintained workplace organization.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-date">Volunteer</div>
+        <div>
+          <div class="exp-company">Big Charm Player</div>
+          <div class="exp-role">Volunteer Project Manager</div>
+          <div class="exp-loc">Theatre production</div>
+          <ul class="exp-bullets">
+            <li>Building AI-assisted workflows and production processes for a theatre production.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="work">
+  <div class="container">
+    <div class="section-label">Work Samples</div>
+    <h2>Things I've built</h2>
+    <p class="work-intro">Sample documents, dashboards, and case studies modeled on the kind of work I do. Names, figures, and dates inside the samples are illustrative.</p>
+
+    <div class="work-group">
+      <div class="work-group-label">Event Production — PULSE Events</div>
+      <div class="samples-grid">
+        <div class="sample-card">
+          <div class="sample-thumb pulse">🎪<div class="thumb-label">Run of Show</div></div>
+          <div class="sample-body">
+            <div class="sample-type">Production Document</div>
+            <div class="sample-title">Bolé & Party — Run-of-Show</div>
+            <div class="sample-desc">A sample run-of-show built around a PULSE event format: load-in through closeout, owner assignments, AV cues, and emergency protocols.</div>
+            <div class="sample-footer">
+              <div class="sample-tags"><span class="sample-tag">PULSE Events</span><span class="sample-tag">Run-of-Show</span></div>
+              <a href="run-of-show.html" class="sample-link">View →</a>
+            </div>
+          </div>
+        </div>
+        <div class="sample-card">
+          <div class="sample-thumb pulse">📋<div class="thumb-label">Production Plan</div></div>
+          <div class="sample-body">
+            <div class="sample-type">Planning Document</div>
+            <div class="sample-title">Bolé & Party — Event Production Plan</div>
+            <div class="sample-desc">A sample production plan: budget breakdown, vendor tracker, pre-event task timeline, and risk log.</div>
+            <div class="sample-footer">
+              <div class="sample-tags"><span class="sample-tag">PULSE Events</span><span class="sample-tag">Budget</span></div>
+              <a href="production-plan.html" class="sample-link">View →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-group">
+      <div class="work-group-label">Creative Operations — WinzTV</div>
+      <div class="samples-grid">
+        <div class="sample-card">
+          <div class="sample-thumb brief">📝<div class="thumb-label">Content Brief</div></div>
+          <div class="sample-body">
+            <div class="sample-type">Intake Template</div>
+            <div class="sample-title">Content Brief Template</div>
+            <div class="sample-desc">A brief format for moving creative work from intake to delivery: concept, audience, tone, deliverable specs, script structure, and a revision protocol.</div>
+            <div class="sample-footer">
+              <div class="sample-tags"><span class="sample-tag">WinzTV</span><span class="sample-tag">Workflow</span></div>
+              <a href="content-brief.html" class="sample-link">View →</a>
+            </div>
+          </div>
+        </div>
+        <div class="sample-card">
+          <div class="sample-thumb dash">🗂<div class="thumb-label">Sprint Board</div></div>
+          <div class="sample-body">
+            <div class="sample-type">Interactive Dashboard</div>
+            <div class="sample-title">Creative Sprint Board</div>
+            <div class="sample-desc">A working kanban and list view of a content sprint: task assignments, status tracking, and team visibility across concurrent projects.</div>
+            <div class="sample-footer">
+              <div class="sample-tags"><span class="sample-tag">WinzTV</span><span class="sample-tag">Monday.com</span></div>
+              <a href="project-dashboard.html" class="sample-link">View →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-group">
+      <div class="work-group-label">Operations — Avis / Budget</div>
+      <div class="samples-grid">
+        <div class="sample-card">
+          <div class="sample-thumb avis">📊<div class="thumb-label">Ops Dashboard</div></div>
+          <div class="sample-body">
+            <div class="sample-type">Interactive Dashboard</div>
+            <div class="sample-title">Operations Metrics Dashboard</div>
+            <div class="sample-desc">A sample dashboard for rental operations: fleet utilization, customer wait time, staffing coverage, and status reporting. Figures are illustrative.</div>
+            <div class="sample-footer">
+              <div class="sample-tags"><span class="sample-tag">Avis / Budget</span><span class="sample-tag">Status Reporting</span></div>
+              <a href="ops-dashboard.html" class="sample-link">View →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-group">
+      <div class="work-group-label">Case Studies</div>
+      <div class="samples-grid">
+        <div class="sample-card">
+          <div class="sample-thumb cs">📖<div class="thumb-label">Case Studies</div></div>
+          <div class="sample-body">
+            <div class="sample-type">Written Case Studies</div>
+            <div class="sample-title">Three Projects. Three Different Problems.</div>
+            <div class="sample-desc">How I approached challenges at PULSE, WinzTV, and Avis / Budget.</div>
+            <div class="sample-footer">
+              <div class="sample-tags"><span class="sample-tag">PULSE</span><span class="sample-tag">WinzTV</span><span class="sample-tag">Avis / Budget</span></div>
+              <a href="case-studies.html" class="sample-link">View →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-group">
+      <div class="work-group-label">Created with Claude</div>
+      <div class="samples-grid">
+        <div class="sample-card">
+          <div class="sample-thumb pulse">🎭<div class="thumb-label">Big Charm Players</div></div>
+          <div class="sample-body">
+            <div class="sample-type">Production Board</div>
+            <div class="sample-title">Big Charm Players Board</div>
+            <div class="sample-desc">A board organized by fiscal year covering the 2026–27 season's plays, a live Savannah production board, reference builds, and youth programs.</div>
+            <div class="sample-footer"><div class="sample-tags"><span class="sample-tag">Big Charm Player</span><span class="sample-tag">Built with Claude</span></div></div>
+          </div>
+        </div>
+        <div class="sample-card">
+          <div class="sample-thumb brief">📄<div class="thumb-label">Production Plan</div></div>
+          <div class="sample-body">
+            <div class="sample-type">Planning Document</div>
+            <div class="sample-title">Community Theatre Production Plan</div>
+            <div class="sample-desc">A working production plan for a community theatre project, written as a shared document.</div>
+            <div class="sample-footer"><div class="sample-tags"><span class="sample-tag">Theatre</span><span class="sample-tag">Built with Claude</span></div></div>
+          </div>
+        </div>
+        <div class="sample-card">
+          <div class="sample-thumb dash">🎨<div class="thumb-label">Studio Projects</div></div>
+          <div class="sample-body">
+            <div class="sample-type">Project Showcase</div>
+            <div class="sample-title">Andrey Anavhe Studio Projects</div>
+            <div class="sample-desc">A collection page for my studio projects.</div>
+            <div class="sample-footer"><div class="sample-tags"><span class="sample-tag">Studio</span><span class="sample-tag">Built with Claude</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="contact">
+  <div class="container">
+    <div class="section-label">Contact</div>
+    <h2>Let's work together</h2>
+    <p>Open to opportunities in people and business operations, project coordination, creative operations, and event production.</p>
+    <div class="contact-links">
+      <a href="mailto:anavhe26@gmail.com" class="contact-btn primary">✉️ Email Me</a>
+      <a href="http://linkedin.com/in/andreyanavhe" target="_blank" class="contact-btn">🔗 LinkedIn</a>
+      <a href="tel:8622262384" class="contact-btn">📞 (862) 226-2384</a>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Andrey Anavhe</footer>
+
+</body>
+</html>
